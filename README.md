@@ -35,7 +35,9 @@
 
 Theme - Agri&tech 
 
-Background: Crop diseases can devastate yields leading to significant financial losses for farmers. Early detection and timely intervention are crucial for effective management. Description: Develop an AI-driven system that analyzes crop images and environmental data to predict potential disease outbreaks. This system will provide farmers with actionable insights and treatment recommendations to mitigate risks. Expected Solution: A mobile and web-based application that utilizes machine learning algorithms to identify crop diseases and suggest preventive measures and treatments based on real-time data.
+**Background:** Crop diseases can devastate yields leading to significant financial losses for farmers. Early detection and timely intervention are crucial for effective management. 
+
+**Description:** Develop an AI-driven system that analyzes crop images and environmental data to predict potential disease outbreaks. This system will provide farmers with actionable insights and treatment recommendations to mitigate risks. Expected Solution: A mobile and web-based application that utilizes machine learning algorithms to identify crop diseases and suggest preventive measures and treatments based on real-time data.
 
 
 ### 💡 Our Approach :
@@ -260,13 +262,43 @@ Solution: The application can facilitate community engagement by allowing users 
 git clone https://github.com/Blacksujit/ArogyaKrishi.git
 ```
 
-<p>2. Train The Models</p>
+<p>2. Download and Setup ML Models (Required)</p>
+
+```
+Why? Large ML model files are not committed to GitHub due to bandwidth and repository size limits. Download them locally from the provided Drive link and place them in the project so the app can load them at runtime.
+```
+
+- Download all required model files from: [Google Drive - ML Models](https://drive.google.com/drive/folders/17AS8ne5I3ulq8Dg4UVxk9UCFFIHHzhGF?usp=sharing)
+- Create a folder named `models` at the project root (same level as `app.py`).
+- Place all downloaded files directly inside the `models/` folder.
+
+Example folder structure:
+
+```
+Apna_kisan_MVP/
+├─ app.py
+├─ model/
+│  ├─ RandomForest.pkl
+│  ├─ DenseNet121v2_95.h5
+│  ├─ SoilNet_93_86.h5
+│  ├─ plant_disease_model.pth
+│  └─ ... (other model files from Drive)
+├─ utils/
+├─ static/
+└─ ...
+```
+
+Notes:
+- If any paths in code reference `model/` (singular), either rename that folder to `models/` or update those paths to point to `models/` to avoid FileNotFound errors.
+- Do not commit model binaries to the repository. Keep them local or distribute via the Drive link above.
+
+<p>3. Train The Models</p>
 
 ```
 run crop_prediction_based_on_numerical_value.ipynb
 ```
 
-<p>3. save the Pretrained Models</p>
+<p>4. save the Pretrained Models</p>
 
 ```
 model/
@@ -275,13 +307,13 @@ model/
    etc
 ```
 
-<p>4. create the dotenv File at root of Project</p>
+<p>5. create the dotenv File at root of Project</p>
 
 ```
 .env
 ```
 
-<p>5. Add Your API Key</p>
+<p>6. Add Your API Key</p>
 
 ```
 OPEN_WEATHER_APIKEY=YOUR_WEATHER_API_KEY
@@ -289,7 +321,7 @@ HUGGINGFACE_LOGIN_TOKEN=YOUR_HUGGING_FACE_TOKEN
 
 ```
 
-<p>6. Run the Project</p>
+<p>7. Run the Project</p>
 
 ```
 python app.py 
