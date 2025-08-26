@@ -324,7 +324,7 @@ HUGGINGFACE_LOGIN_TOKEN=YOUR_HUGGING_FACE_TOKEN
 <p>7. Install all dependencies </p>
 
 ```
-pip install requirements.txt
+pip install -r requirements.txt
 
 ```
 
