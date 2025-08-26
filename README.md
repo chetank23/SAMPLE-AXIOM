@@ -321,7 +321,14 @@ HUGGINGFACE_LOGIN_TOKEN=YOUR_HUGGING_FACE_TOKEN
 
 ```
 
-<p>7. Run the Project</p>
+<p>7. Install all dependencies </p>
+
+```
+pip install requirements.txt
+
+```
+
+<p>8. Run the Project</p>
 
 ```
 python app.py 
