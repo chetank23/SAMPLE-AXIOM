@@ -264,9 +264,9 @@ git clone https://github.com/Blacksujit/ArogyaKrishi.git
 
 <p>2. Download and Setup ML Models (Required)</p>
 
-```
-Why? Large ML model files are not committed to GitHub due to bandwidth and repository size limits. Download them locally from the provided Drive link and place them in the project so the app can load them at runtime.
-```
+
+**Why? Large ML model files are not committed to GitHub due to bandwidth and repository size limits. Download them locally from the provided Drive link and place them in the project so the app can load them at runtime.**
+
 
 - Download all required model files from: [Google Drive - ML Models](https://drive.google.com/drive/folders/17AS8ne5I3ulq8Dg4UVxk9UCFFIHHzhGF?usp=sharing)
 - Create a folder named `models` at the project root (same level as `app.py`).
