@@ -199,12 +199,16 @@ disease_classes = ['Apple___Apple_scab',
 
 # Loading crop recommendation model
 
-crop_recommendation_model_path = 'D:\\new_crop\\Apna_kisan_MVp\\Apna_kisan_MVP\\model\\RandomForest.pkl'
-crop_recommendation_model = pickle.load(
-    open(crop_recommendation_model_path, 'rb'))
+# Use local project model if present
+local_model_dir = os.path.join(os.path.dirname(__file__), 'model')
+crop_recommendation_model_path = os.path.join(local_model_dir, 'DecisionTree.pkl')
+try:
+    crop_recommendation_model = pickle.load(open(crop_recommendation_model_path, 'rb'))
+except Exception:
+    crop_recommendation_model = None
 
 
-soil_type_prediction_model_path = 'D:\\new_crop\\Apna_kisan_MVp\\Apna_kisan_MVP\\model\\DenseNet121v2_95.h5'
+soil_type_prediction_model_path = os.path.join(local_model_dir, 'DenseNet121v2_95.h5')
 
 labels = ['Chalky Soil', 'Mary Soil', 'Sand', 'Slit Soil', 'Alluvial Soil', 'Black Soil', 'Clay Soil', 'Red Soil']
 
@@ -241,7 +245,7 @@ def load_model_safely(model_path):
 soil_model = load_model_safely(soil_type_prediction_model_path)
 
 # Load the model once and reuse it
-model_path = "D:\\new_crop\\Apna_kisan_MVp\\Apna_kisan_MVP\\model\\SoilNet_93_86.h5"
+model_path = os.path.join(local_model_dir, 'SoilNet_93_86.h5')
 SoilNet = load_model_safely(model_path)
 
 # Soil types and corresponding crop recommendations
@@ -795,7 +799,8 @@ def fert_recommend():
     K = int(request.form['pottasium'])
     # ph = float(request.form['ph'])
 
-    df = pd.read_csv('D:\\new_crop\\Apna_kisan_MVp\\Apna_kisan_MVP\data\\fertilizer.csv')
+    data_dir = os.path.join(os.path.dirname(__file__), 'data')
+    df = pd.read_csv(os.path.join(data_dir, 'fertilizer.csv'))
 
     nr = df[df['Crop'] == crop_name]['N'].iloc[0]
     pr = df[df['Crop'] == crop_name]['P'].iloc[0]
