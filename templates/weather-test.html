@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather API Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .test-section {
+            background: #f5f5f5;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px 5px;
+            background: #6b8e23;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #5a7a1c;
+        }
+        pre {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .error {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .success {
+            color: #27ae60;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Weather API Test Page</h1>
+    
+    <div class="test-section">
+        <h2>Test 1: API Route Test</h2>
+        <button onclick="testAPI()">Test /api/weather with London</button>
+        <div id="apiResult"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 2: Geolocation Test</h2>
+        <button onclick="testGeolocation()">Test Browser Geolocation</button>
+        <div id="geoResult"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 3: Weather Card Visibility</h2>
+        <button onclick="testCardVisibility()">Check if Weather Card Exists</button>
+        <div id="cardResult"></div>
+    </div>
+
+    <script>
+        async function testAPI() {
+            const resultDiv = document.getElementById('apiResult');
+            resultDiv.innerHTML = '<p>Testing...</p>';
+            
+            try {
+                const response = await fetch('/api/weather?city=London');
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.innerHTML = `
+                        <p class="success">✓ API is working!</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <p class="error">✗ API Error: ${data.error || 'Unknown error'}</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <p class="error">✗ Network Error: ${error.message}</p>
+                `;
+            }
+        }
+        
+        function testGeolocation() {
+            const resultDiv = document.getElementById('geoResult');
+            resultDiv.innerHTML = '<p>Requesting location...</p>';
+            
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        resultDiv.innerHTML = `
+                            <p class="success">✓ Geolocation is working!</p>
+                            <pre>Latitude: ${position.coords.latitude}
+Longitude: ${position.coords.longitude}
+Accuracy: ${position.coords.accuracy}m</pre>
+                        `;
+                    },
+                    (error) => {
+                        resultDiv.innerHTML = `
+                            <p class="error">✗ Geolocation Error: ${error.message}</p>
+                            <p>Error Code: ${error.code}</p>
+                            <ul>
+                                <li>1 = PERMISSION_DENIED</li>
+                                <li>2 = POSITION_UNAVAILABLE</li>
+                                <li>3 = TIMEOUT</li>
+                            </ul>
+                        `;
+                    }
+                );
+            } else {
+                resultDiv.innerHTML = '<p class="error">✗ Geolocation is not supported by this browser</p>';
+            }
+        }
+        
+        function testCardVisibility() {
+            const resultDiv = document.getElementById('cardResult');
+            
+            // Check if we're on dashboard page
+            if (window.location.pathname.includes('dashboard')) {
+                const card = document.querySelector('.weather-card');
+                if (card) {
+                    const styles = window.getComputedStyle(card);
+                    resultDiv.innerHTML = `
+                        <p class="success">✓ Weather card found!</p>
+                        <pre>Display: ${styles.display}
+Visibility: ${styles.visibility}
+Opacity: ${styles.opacity}
+Width: ${styles.width}
+Height: ${styles.height}</pre>
+                    `;
+                } else {
+                    resultDiv.innerHTML = '<p class="error">✗ Weather card not found in DOM</p>';
+                }
+            } else {
+                resultDiv.innerHTML = '<p>Please run this test from the dashboard page</p>';
+            }
+        }
+    </script>
+</body>
+</html>
+

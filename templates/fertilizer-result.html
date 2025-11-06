@@ -1,0 +1,189 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+<!-- Page Header -->
+<section class="page-header">
+  <div class="container">
+    <div class="page-header-content">
+      <span class="page-badge">
+        <i class="fas fa-check-circle"></i>
+        Fertilizer Recommendation
+      </span>
+      <h1 class="page-title">Your Personalized Fertilizer Guide</h1>
+      <p class="page-description">Based on your crop and soil analysis, here are our expert recommendations.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Result Section -->
+<section class="result-section">
+  <div class="container">
+    <div class="result-wrapper">
+      <!-- Recommendation Card -->
+      <div class="agri-card result-card">
+        <div class="result-header">
+          <div class="result-icon">
+            <i class="fas fa-seedling"></i>
+          </div>
+          <h2 class="result-title">Fertilizer Recommendations</h2>
+        </div>
+        
+        <div class="recommendation-content">
+          <div class="recommendation-text">
+            {{ recommendation|safe }}
+          </div>
+        </div>
+        
+        <div class="result-actions">
+          <a href="{{ url_for('fertilizer_recommendation') }}" class="btn-agri">
+            <i class="fas fa-redo"></i>
+            <span>Get Another Recommendation</span>
+          </a>
+          <a href="{{ url_for('home') }}" class="btn-agri" style="background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);">
+            <i class="fas fa-home"></i>
+            <span>Back to Home</span>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Additional Info Card -->
+      <div class="info-card">
+        <h3 class="info-title">
+          <i class="fas fa-info-circle"></i>
+          Important Notes
+        </h3>
+        <ul class="info-list">
+          <li class="info-item">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span>Always follow manufacturer's instructions when applying fertilizers</span>
+          </li>
+          <li class="info-item">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span>Test your soil regularly to monitor nutrient levels</span>
+          </li>
+          <li class="info-item">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span>Consider environmental factors like weather and season</span>
+          </li>
+          <li class="info-item">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span>Consult with local agricultural experts for region-specific advice</span>
+          </li>
+        </ul>
+        
+        <div class="info-tips">
+          <h4 class="tips-title">
+            <i class="fas fa-star"></i>
+            Best Practices
+          </h4>
+          <ul class="tips-list">
+            <li>Apply fertilizers during the recommended growth stages</li>
+            <li>Water your crops after fertilizer application</li>
+            <li>Store fertilizers in a cool, dry place</li>
+            <li>Use organic options when possible for sustainable farming</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.result-section {
+  padding: 3rem 0;
+}
+
+.result-wrapper {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.result-card {
+  min-height: 400px;
+}
+
+.result-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid rgba(107, 142, 35, 0.2);
+}
+
+.result-icon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #6b8e23, #9acd32);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.result-title {
+  font-size: 2rem;
+  color: #2d5016;
+  margin: 0;
+}
+
+.recommendation-content {
+  margin: 2rem 0;
+}
+
+.recommendation-text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #3e3e3e;
+}
+
+.recommendation-text b {
+  color: #2d5016;
+  font-weight: 600;
+}
+
+.recommendation-text i {
+  color: #6b8e23;
+  font-style: italic;
+}
+
+.result-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.result-actions .btn-agri {
+  flex: 1;
+  min-width: 200px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+@media (max-width: 968px) {
+  .result-wrapper {
+    grid-template-columns: 1fr;
+  }
+  
+  .result-actions {
+    flex-direction: column;
+  }
+  
+  .result-actions .btn-agri {
+    width: 100%;
+  }
+}
+</style>
+
+{% endblock %}
+

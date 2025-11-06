@@ -1,0 +1,215 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+<!-- Page Header -->
+<section class="page-header">
+  <div class="container">
+    <div class="page-header-content">
+      <span class="page-badge">
+        <i class="fas fa-flask"></i>
+        Fertilizer Recommendation
+      </span>
+      <h1 class="page-title">Get Expert Fertilizer Recommendations</h1>
+      <p class="page-description">Enter your crop details and soil nutrient levels to receive personalized fertilizer recommendations for optimal growth.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Fertilizer Form Section -->
+<section class="upload-section">
+  <div class="container">
+    <div class="upload-wrapper">
+      <div class="upload-card">
+        <div class="upload-header">
+          <div class="upload-icon">
+            <i class="fas fa-seedling"></i>
+          </div>
+          <h2 class="upload-title">Enter Crop & Soil Information</h2>
+          <p class="upload-subtitle">Provide your crop name and current nutrient levels for personalized recommendations</p>
+        </div>
+        
+        <form method="POST" action="{{ url_for('fert_recommend') }}" class="upload-form">
+          <div class="form-group-modern">
+            <label for="cropname" class="form-label-modern">
+              <i class="fas fa-leaf"></i>
+              Crop Name
+            </label>
+            <select name="cropname" id="cropname" class="agri-input" required>
+              <option value="">Select a crop...</option>
+              <option value="rice">Rice</option>
+              <option value="maize">Maize</option>
+              <option value="chickpea">Chickpea</option>
+              <option value="kidneybeans">Kidney Beans</option>
+              <option value="pigeonpeas">Pigeon Peas</option>
+              <option value="mothbeans">Moth Beans</option>
+              <option value="mungbean">Mung Bean</option>
+              <option value="blackgram">Black Gram</option>
+              <option value="lentil">Lentil</option>
+              <option value="pomegranate">Pomegranate</option>
+              <option value="banana">Banana</option>
+              <option value="mango">Mango</option>
+              <option value="grapes">Grapes</option>
+              <option value="watermelon">Watermelon</option>
+              <option value="muskmelon">Muskmelon</option>
+              <option value="apple">Apple</option>
+              <option value="orange">Orange</option>
+              <option value="papaya">Papaya</option>
+              <option value="coconut">Coconut</option>
+            </select>
+          </div>
+          
+          <div class="form-row-modern">
+            <div class="form-group-modern">
+              <label for="nitrogen" class="form-label-modern">
+                <i class="fas fa-atom"></i>
+                Nitrogen (N) Level
+              </label>
+              <input 
+                type="number" 
+                name="nitrogen" 
+                id="nitrogen" 
+                class="agri-input" 
+                placeholder="Enter N value (0-200)"
+                min="0" 
+                max="200" 
+                required
+              />
+              <small class="form-hint">Typical range: 0-200</small>
+            </div>
+            
+            <div class="form-group-modern">
+              <label for="phosphorous" class="form-label-modern">
+                <i class="fas fa-flask"></i>
+                Phosphorus (P) Level
+              </label>
+              <input 
+                type="number" 
+                name="phosphorous" 
+                id="phosphorous" 
+                class="agri-input" 
+                placeholder="Enter P value (0-200)"
+                min="0" 
+                max="200" 
+                required
+              />
+              <small class="form-hint">Typical range: 0-200</small>
+            </div>
+            
+            <div class="form-group-modern">
+              <label for="pottasium" class="form-label-modern">
+                <i class="fas fa-gem"></i>
+                Potassium (K) Level
+              </label>
+              <input 
+                type="number" 
+                name="pottasium" 
+                id="pottasium" 
+                class="agri-input" 
+                placeholder="Enter K value (0-200)"
+                min="0" 
+                max="200" 
+                required
+              />
+              <small class="form-hint">Typical range: 0-200</small>
+            </div>
+          </div>
+          
+          <button type="submit" class="btn-submit-modern btn-agri">
+            <i class="fas fa-search"></i>
+            <span>Get Fertilizer Recommendations</span>
+            <i class="fas fa-arrow-right"></i>
+          </button>
+        </form>
+      </div>
+      
+      <!-- Info Card -->
+      <div class="info-card">
+        <h3 class="info-title">
+          <i class="fas fa-lightbulb"></i>
+          How It Works
+        </h3>
+        <ul class="info-list">
+          <li class="info-item">
+            <i class="fas fa-check-circle"></i>
+            <span>Select your crop type from the dropdown</span>
+          </li>
+          <li class="info-item">
+            <i class="fas fa-check-circle"></i>
+            <span>Enter current Nitrogen (N), Phosphorus (P), and Potassium (K) levels</span>
+          </li>
+          <li class="info-item">
+            <i class="fas fa-check-circle"></i>
+            <span>Our system compares with optimal nutrient levels for your crop</span>
+          </li>
+          <li class="info-item">
+            <i class="fas fa-check-circle"></i>
+            <span>Receive detailed fertilizer recommendations</span>
+          </li>
+        </ul>
+        
+        <div class="info-tips">
+          <h4 class="tips-title">
+            <i class="fas fa-star"></i>
+            Understanding NPK
+          </h4>
+          <ul class="tips-list">
+            <li><strong>Nitrogen (N):</strong> Essential for leaf growth and green color</li>
+            <li><strong>Phosphorus (P):</strong> Important for root development and flowering</li>
+            <li><strong>Potassium (K):</strong> Vital for overall plant health and fruit quality</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Benefits Section -->
+<section class="features-preview">
+  <div class="container">
+    <div class="features-preview-grid">
+      <div class="preview-item">
+        <i class="fas fa-chart-line"></i>
+        <h3>Optimized Growth</h3>
+        <p>Get the right nutrients at the right time for maximum yield</p>
+      </div>
+      <div class="preview-item">
+        <i class="fas fa-dollar-sign"></i>
+        <h3>Cost Effective</h3>
+        <p>Avoid over-fertilization and reduce unnecessary expenses</p>
+      </div>
+      <div class="preview-item">
+        <i class="fas fa-leaf"></i>
+        <h3>Healthy Crops</h3>
+        <p>Maintain optimal nutrient balance for robust plant health</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.form-row-modern {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-hint {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: rgba(107, 142, 35, 0.7);
+  font-style: italic;
+}
+
+.upload-form select.agri-input {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b8e23' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 3rem;
+}
+</style>
+
+{% endblock %}
+

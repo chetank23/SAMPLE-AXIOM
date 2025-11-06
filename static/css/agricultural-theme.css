@@ -1,0 +1,436 @@
+/* Agricultural Theme - Enhanced UI for All Pages */
+
+/* Agricultural Color Palette */
+:root {
+    --agri-primary-green: #2d5016;
+    --agri-secondary-green: #4a7c2a;
+    --agri-light-green: #6b8e23;
+    --agri-lime: #9acd32;
+    --agri-earth-brown: #8b4513;
+    --agri-dark-brown: #654321;
+    --agri-sand: #f4a460;
+    --agri-sky-blue: #87ceeb;
+    --agri-sun-yellow: #ffd700;
+    --agri-soil-dark: #3e2723;
+    --agri-leaf-green: #228b22;
+    --agri-wheat: #f5deb3;
+    --agri-cream: #fff8dc;
+}
+
+/* Agricultural Background Patterns */
+body {
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 50%, #a5d6a7 100%);
+    background-attachment: fixed;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 20% 50%, rgba(107, 142, 35, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(139, 69, 19, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 20%, rgba(154, 205, 50, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Agricultural Pattern Overlay */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(107, 142, 35, 0.03) 35px, rgba(107, 142, 35, 0.03) 70px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Main Content Overlay */
+.main-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* Agricultural Card Styles */
+.agri-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9f5 100%);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 
+        0 4px 20px rgba(45, 80, 22, 0.1),
+        0 2px 8px rgba(139, 69, 19, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    border: 2px solid rgba(107, 142, 35, 0.2);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.agri-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--agri-light-green), var(--agri-lime), var(--agri-light-green));
+    background-size: 200% 100%;
+    animation: shimmer 3s linear infinite;
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+.agri-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 
+        0 8px 30px rgba(45, 80, 22, 0.15),
+        0 4px 12px rgba(139, 69, 19, 0.1);
+}
+
+/* Agricultural Buttons */
+.btn-agri {
+    background: linear-gradient(135deg, var(--agri-light-green) 0%, var(--agri-secondary-green) 100%);
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(107, 142, 35, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-agri::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn-agri:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn-agri:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(107, 142, 35, 0.4);
+    background: linear-gradient(135deg, var(--agri-secondary-green) 0%, var(--agri-primary-green) 100%);
+}
+
+.btn-agri:active {
+    transform: translateY(0);
+}
+
+/* Agricultural Icons */
+.agri-icon {
+    color: var(--agri-light-green);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: inline-block;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Agricultural Headers */
+.agri-header {
+    background: linear-gradient(135deg, var(--agri-primary-green) 0%, var(--agri-secondary-green) 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 15px rgba(45, 80, 22, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.agri-header::before {
+    content: '🌾';
+    position: absolute;
+    font-size: 8rem;
+    opacity: 0.1;
+    right: -2rem;
+    top: -2rem;
+    transform: rotate(-15deg);
+}
+
+.agri-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Agricultural Form Elements */
+.agri-input {
+    background: white;
+    border: 2px solid rgba(107, 142, 35, 0.3);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.agri-input:focus {
+    outline: none;
+    border-color: var(--agri-light-green);
+    box-shadow: 0 0 0 3px rgba(107, 142, 35, 0.1);
+    background: #f8f9f5;
+}
+
+.agri-input::placeholder {
+    color: rgba(107, 142, 35, 0.5);
+}
+
+/* Agricultural Badge */
+.agri-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--agri-lime) 0%, var(--agri-light-green) 100%);
+    color: var(--agri-primary-green);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(107, 142, 35, 0.2);
+}
+
+/* Agricultural Table */
+.agri-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(45, 80, 22, 0.1);
+}
+
+.agri-table thead {
+    background: linear-gradient(135deg, var(--agri-light-green) 0%, var(--agri-secondary-green) 100%);
+    color: white;
+}
+
+.agri-table th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+}
+
+.agri-table td {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(107, 142, 35, 0.1);
+}
+
+.agri-table tbody tr:hover {
+    background: rgba(107, 142, 35, 0.05);
+}
+
+/* Agricultural Progress Bar */
+.agri-progress {
+    width: 100%;
+    height: 1.5rem;
+    background: rgba(107, 142, 35, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.agri-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--agri-light-green), var(--agri-lime));
+    border-radius: 10px;
+    transition: width 0.5s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.agri-progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: progress-shine 2s infinite;
+}
+
+@keyframes progress-shine {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* Agricultural Alert */
+.agri-alert {
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    border-left: 4px solid;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.agri-alert-success {
+    background: rgba(107, 142, 35, 0.1);
+    border-color: var(--agri-light-green);
+    color: var(--agri-primary-green);
+}
+
+.agri-alert-warning {
+    background: rgba(255, 215, 0, 0.1);
+    border-color: var(--agri-sun-yellow);
+    color: #856404;
+}
+
+.agri-alert-error {
+    background: rgba(220, 53, 69, 0.1);
+    border-color: #dc3545;
+    color: #721c24;
+}
+
+/* Agricultural Section Divider */
+.agri-divider {
+    display: flex;
+    align-items: center;
+    margin: 3rem 0;
+    gap: 1rem;
+}
+
+.agri-divider::before,
+.agri-divider::after {
+    content: '';
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--agri-light-green), transparent);
+}
+
+.agri-divider-icon {
+    font-size: 1.5rem;
+    color: var(--agri-light-green);
+}
+
+/* Agricultural Loading Spinner */
+.agri-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(107, 142, 35, 0.2);
+    border-top-color: var(--agri-light-green);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Agricultural Tooltip */
+.agri-tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.agri-tooltip:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.5rem 1rem;
+    background: var(--agri-primary-green);
+    color: white;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    white-space: nowrap;
+    z-index: 1000;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.agri-tooltip:hover::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: var(--agri-primary-green);
+    z-index: 1000;
+    margin-bottom: -6px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .agri-card {
+        padding: 1.5rem;
+    }
+    
+    .agri-header h1 {
+        font-size: 1.75rem;
+    }
+    
+    .btn-agri {
+        padding: 0.625rem 1.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Agricultural Background Textures */
+.agri-texture-light {
+    background-image: 
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(107, 142, 35, 0.02) 2px, rgba(107, 142, 35, 0.02) 4px);
+}
+
+.agri-texture-medium {
+    background-image: 
+        repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(139, 69, 19, 0.03) 10px, rgba(139, 69, 19, 0.03) 20px);
+}
+
+/* Agricultural Decorative Elements */
+.agri-decoration {
+    position: relative;
+}
+
+.agri-decoration::before {
+    content: '🌱';
+    position: absolute;
+    font-size: 3rem;
+    opacity: 0.1;
+    top: -1rem;
+    right: -1rem;
+    z-index: 0;
+}
+
+/* Agricultural Gradient Text */
+.agri-gradient-text {
+    background: linear-gradient(135deg, var(--agri-primary-green), var(--agri-light-green), var(--agri-lime));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+}
+

@@ -97,24 +97,20 @@ from PIL import Image
 import base64
 from torchvision import transforms
 from utils.disease import disease_dic
+from utils.fertilizer import fertilizer_dic
 from markupsafe import Markup
 from utils.model import ResNet9
 import pickle
 import redis
 import json
 import firebase_admin
-from firebase_admin import credentials
+from firebase_admin import credentials, auth, firestore
 import time
 from flask_cors import CORS
-import firebase_admin
-from firebase_admin import credentials, auth
-from firebase_admin import credentials, auth, firestore
-from flask import Flask, request,render_template, redirect,session
+from flask import Flask, request, render_template, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 import bcrypt
 import os
-import numpy as np
-from PIL import Image
 import tensorflow as tf
 from keras.models import load_model
 # from keras.preprocessing.image import load_img, img_to_array
@@ -132,8 +128,11 @@ import tempfile
 
 
 # -----------------------------------------new Pipeline for accurate prediction--------------------
-pipe = pipeline("object-detection", model="krifa/LeafDiseaseDetection")
+# pipe = pipeline("object-detection", model="krifa/LeafDiseaseDetection")  # Commented out - using image-classification instead
 # -----------------------------------------new Pipeline for accurate prediction--------------------
+
+# Load the image classification pipeline (defined early for use in function defaults)
+pipe = pipeline("image-classification", model="SanketJadhav/PlantDiseaseClassifier-Resnet50")
 
 #  Firebase auth initialization
 
@@ -451,7 +450,7 @@ recommendations = {
     }
 }
 
-
+# Fertilizer recommendations are now imported from utils.fertilizer
 
 def generate_fertilizer_recommendation(disease_name, latitude, longitude, api_key):
     weather_data = get_weather_data(latitude, longitude, api_key)
@@ -484,11 +483,6 @@ def generate_fertilizer_recommendation(disease_name, latitude, longitude, api_ke
             'details': 'Apply 50g per plant, once every two weeks during the growing season.',
             'application_method': 'Spread evenly around the base of the plant and water thoroughly.'
         }
-
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in {'png', 'jpg', 'jpeg'}
-
-
 
 
 def predict_image(img, model=pipe):
@@ -596,9 +590,6 @@ def weather_fetch(city_name):
 # Set the allowed file extensions
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
-# Load the image classification pipeline
-pipe = pipeline("image-classification", model="SanketJadhav/PlantDiseaseClassifier-Resnet50")
-
 # Check if the uploaded file is allowed
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -610,12 +601,11 @@ app = Flask(__name__ , static_folder='static')
 
 
 
-# app.secret_key = 'apna_kisan'  # Use a strong secret key
 CORS(app)  # Enable CORS if needed
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///farmers_database.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URI', 'sqlite:///farmers_database.db')
 app.config['UPLOAD_FOLDER'] = 'uploads/'
 db = SQLAlchemy(app)
-app.secret_key = 'apna_kisan'
+app.secret_key = os.getenv('FLASK_SECRET_KEY', 'apna_kisan')  # Use environment variable or fallback
 
 
 
@@ -725,7 +715,7 @@ def home():
     # Redirect to index for the Home link
     return redirect(url_for('index'))
 
-@ app.route('/crop-recommend')
+@app.route('/crop-recommend')
 def crop_recommend():
     title = 'Crop Recommendation'
     return render_template('crop.html', title=title)
@@ -764,13 +754,12 @@ def soil_prediction():
 
 
 
-@ app.route('/fertilizer')
+@app.route('/fertilizer')
 def fertilizer_recommendation():
     title = 'Fertilizer Suggestion'
-
     return render_template('fertilizer.html', title=title)
 
-@ app.route('/fertilizer-predict', methods=['POST'])
+@app.route('/fertilizer-predict', methods=['POST'])
 def fert_recommend():
     title = 'Fertilizer Suggestion'
 
@@ -780,7 +769,7 @@ def fert_recommend():
     K = int(request.form['pottasium'])
     # ph = float(request.form['ph'])
 
-    data_dir = os.path.join(os.path.dirname(__file__), 'data')
+    data_dir = os.path.join(os.path.dirname(__file__), 'Data-processed')
     df = pd.read_csv(os.path.join(data_dir, 'fertilizer.csv'))
 
     nr = df[df['Crop'] == crop_name]['N'].iloc[0]
