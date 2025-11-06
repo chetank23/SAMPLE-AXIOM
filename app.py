@@ -97,9 +97,7 @@ from PIL import Image
 import base64
 from torchvision import transforms
 from utils.disease import disease_dic
-from utils.fertilizer import fertilizer_dic
 from markupsafe import Markup
-import config
 from utils.model import ResNet9
 import pickle
 import redis
@@ -155,30 +153,13 @@ disease_classes = ['Apple___Apple_scab',
                    'Apple___Black_rot',
                    'Apple___Cedar_apple_rust',
                    'Apple___healthy',
-                   'Blueberry___healthy',
-                   'Cherry_(including_sour)___Powdery_mildew',
-                   'Cherry_(including_sour)___healthy',
                    'Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot',
                    'Corn_(maize)___Common_rust_',
                    'Corn_(maize)___Northern_Leaf_Blight',
                    'Corn_(maize)___healthy',
-                   'Grape___Black_rot',
-                   'Grape___Esca_(Black_Measles)',
-                   'Grape___Leaf_blight_(Isariopsis_Leaf_Spot)',
-                   'Grape___healthy',
-                   'Orange___Haunglongbing_(Citrus_greening)',
-                   'Peach___Bacterial_spot',
-                   'Peach___healthy',
-                   'Pepper,_bell___Bacterial_spot',
-                   'Pepper,_bell___healthy',
                    'Potato___Early_blight',
                    'Potato___Late_blight',
                    'Potato___healthy',
-                   'Raspberry___healthy',
-                   'Soybean___healthy',
-                   'Squash___Powdery_mildew',
-                   'Strawberry___Leaf_scorch',
-                   'Strawberry___healthy',
                    'Tomato___Bacterial_spot',
                    'Tomato___Early_blight',
                    'Tomato___Late_blight',
@@ -575,7 +556,7 @@ def weather_fetch(city_name):
     :params: city_name
     :return: temperature, humidity or None if there's an issue
     """
-    api_key = config.weather_api_key
+    api_key = weather_api_key or os.getenv("OPEN_WEATHER_APIKEY")
     base_url = "http://api.openweathermap.org/data/2.5/weather?"
 
     complete_url = base_url + "appid=" + api_key + "&q=" + city_name
@@ -746,13 +727,13 @@ def home():
 
 @ app.route('/crop-recommend')
 def crop_recommend():
-    title = 'Arogya Krishi - Crop Recommendation'
+    title = 'Crop Recommendation'
     return render_template('crop.html', title=title)
 
 
 @app.route('/soil-predict', methods=['POST'])
 def soil_prediction():
-    title = 'Arogya Krishi - Soil Prediction'
+    title = 'Soil Prediction'
 
     if 'soil_image' not in request.files:
         return render_template('try_again.html', title=title, error_message="No file part in the request.")
@@ -785,13 +766,13 @@ def soil_prediction():
 
 @ app.route('/fertilizer')
 def fertilizer_recommendation():
-    title = 'Arogya Krishi - Fertilizer Suggestion'
+    title = 'Fertilizer Suggestion'
 
     return render_template('fertilizer.html', title=title)
 
 @ app.route('/fertilizer-predict', methods=['POST'])
 def fert_recommend():
-    title = 'Arogya Krishi - Fertilizer Suggestion'
+    title = 'Fertilizer Suggestion'
 
     crop_name = str(request.form['cropname'])
     N = int(request.form['nitrogen'])
@@ -877,7 +858,7 @@ def upload():
 
 @app.route('/disease-predict', methods=['GET', 'POST'])
 def disease_prediction():
-    title = 'Arogya Krishi - Disease Detection'
+    title = 'Disease Detection'
 
     if request.method == 'POST':
         if 'file' not in request.files:
