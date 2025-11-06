@@ -1,40 +1,142 @@
 {% extends 'layout.html' %}
 {% block body %}
 
-<style>
-    html body {
-        background-color: rgb(206, 206, 228);
+<!-- Page Header -->
+<section class="page-header">
+  <div class="container">
+    <div class="page-header-content">
+      <span class="page-badge">
+        <i class="fas fa-seedling"></i>
+        Crop Recommendation
+      </span>
+      <h1 class="page-title">Find the Perfect Crop for Your Soil</h1>
+      <p class="page-description">Upload a soil image or enter your field parameters to get AI-powered crop recommendations tailored to your land.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Upload Section -->
+<section class="upload-section">
+  <div class="container">
+    <div class="upload-wrapper">
+      <div class="upload-card">
+        <div class="upload-header">
+          <div class="upload-icon">
+            <i class="fas fa-cloud-upload-alt"></i>
+          </div>
+          <h2 class="upload-title">Upload Soil Image</h2>
+          <p class="upload-subtitle">Get instant crop recommendations based on your soil type</p>
+        </div>
+        
+        <form method="POST" action="{{ url_for('soil_prediction') }}" enctype="multipart/form-data" class="upload-form">
+          <div class="form-group-modern">
+            <label for="soil_image" class="form-label-modern">
+              <i class="fas fa-image"></i>
+              Select Soil Image
+            </label>
+            <div class="file-input-wrapper">
+              <input type="file" class="file-input-modern" id="soil_image" name="soil_image" accept="image/*" required />
+              <label for="soil_image" class="file-label-modern">
+                <i class="fas fa-folder-open"></i>
+                <span class="file-text">Choose Image File</span>
+                <span class="file-hint">PNG, JPG, JPEG up to 10MB</span>
+              </label>
+            </div>
+            <div class="file-preview" id="filePreview"></div>
+          </div>
+          
+          <button type="submit" class="btn-submit-modern">
+            <i class="fas fa-search"></i>
+            <span>Analyze Soil & Get Recommendations</span>
+            <i class="fas fa-arrow-right"></i>
+          </button>
+        </form>
+      </div>
+      
+      <!-- Info Card -->
+      <div class="info-card">
+        <h3 class="info-title">
+          <i class="fas fa-lightbulb"></i>
+          How It Works
+        </h3>
+        <ul class="info-list">
+          <li class="info-item">
+            <i class="fas fa-check-circle"></i>
+            <span>Upload a clear image of your soil</span>
+          </li>
+          <li class="info-item">
+            <i class="fas fa-check-circle"></i>
+            <span>Our AI analyzes the soil type and composition</span>
+          </li>
+          <li class="info-item">
+            <i class="fas fa-check-circle"></i>
+            <span>Get personalized crop recommendations</span>
+          </li>
+          <li class="info-item">
+            <i class="fas fa-check-circle"></i>
+            <span>View detailed information about each crop</span>
+          </li>
+        </ul>
+        
+        <div class="info-tips">
+          <h4 class="tips-title">
+            <i class="fas fa-star"></i>
+            Tips for Best Results
+          </h4>
+          <p class="tips-text">Use good lighting, ensure the image is clear and focused, and include a representative sample of your soil.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features Preview -->
+<section class="features-preview">
+  <div class="container">
+    <div class="features-preview-grid">
+      <div class="preview-item">
+        <i class="fas fa-mountain"></i>
+        <h3>Soil Type Detection</h3>
+        <p>Automatically identify alluvial, black, clay, and red soil types</p>
+      </div>
+      <div class="preview-item">
+        <i class="fas fa-seedling"></i>
+        <h3>Crop Matching</h3>
+        <p>Get crops perfectly suited for your soil composition</p>
+      </div>
+      <div class="preview-item">
+        <i class="fas fa-chart-line"></i>
+        <h3>Yield Optimization</h3>
+        <p>Maximize your harvest with data-driven recommendations</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // File input preview
+  document.getElementById('soil_image').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    const preview = document.getElementById('filePreview');
+    
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        preview.innerHTML = `
+          <div class="preview-image-wrapper">
+            <img src="${e.target.result}" alt="Preview" class="preview-image" />
+            <div class="preview-info">
+              <span class="preview-name">${file.name}</span>
+              <span class="preview-size">${(file.size / 1024 / 1024).toFixed(2)} MB</span>
+            </div>
+          </div>
+        `;
+      };
+      reader.readAsDataURL(file);
+    } else {
+      preview.innerHTML = '';
     }
-</style>
-
-<br /><br />
-<h2 style="text-align: center; margin: 0px; color: black">
-    <b>Upload Soil Image to Predict the Best Crop</b>
-</h2>
-<br />
-
-<div
-  style="
-    width: 350px;
-    height: 20rem;
-    margin: 0px auto;
-    color: black;
-    border-radius: 25px;
-    padding: 10px 10px;
-  "
->
-<form method="POST" action="{{ url_for('soil_prediction') }}" enctype="multipart/form-data">
-  <div class="form-group">
-      <label for="soil_image" style="font-size: 17px"><b>Upload Soil Image</b></label>
-      <input type="file" class="form-control" id="soil_image" name="soil_image" required />
-  </div>
-  <div class="d-flex justify-content-center">
-      <button type="submit" class="btn btn-info" style="color: black; font-weight: bold; width: 130px; height:50px; border-radius:12px; font-size: 21px;">
-          Predict
-      </button>
-  </div>
-</form>
-
-</div>
+  });
+</script>
 
 {% endblock %}

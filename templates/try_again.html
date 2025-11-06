@@ -1,26 +1,70 @@
-{% extends 'layout.html' %} {% block body %}
+{% extends 'layout.html' %} 
+{% block body %}
 
+<!-- Error Header -->
+<section class="error-header">
+  <div class="container">
+    <div class="error-header-content">
+      <div class="error-icon">
+        <i class="fas fa-exclamation-triangle"></i>
+      </div>
+      <h1 class="error-title">Oops! Something Went Wrong</h1>
+      <p class="error-subtitle">We couldn't process your request at this time</p>
+    </div>
+  </div>
+</section>
 
+<!-- Error Content -->
+<section class="error-content">
+  <div class="container">
+    <div class="error-card">
+      <div class="error-message-box">
+        <i class="fas fa-info-circle"></i>
+        <h2>Unable to Process Request</h2>
+        {% if error_message %}
+        <p class="error-details">{{ error_message }}</p>
+        {% else %}
+        <p class="error-details">Please check your image and try again. Make sure the image is clear and in a supported format (PNG, JPG, JPEG).</p>
+        {% endif %}
+      </div>
 
+      <div class="error-suggestions">
+        <h3 class="suggestions-title">
+          <i class="fas fa-lightbulb"></i>
+          Suggestions
+        </h3>
+        <ul class="suggestions-list">
+          <li>
+            <i class="fas fa-check"></i>
+            <span>Ensure the image is clear and well-lit</span>
+          </li>
+          <li>
+            <i class="fas fa-check"></i>
+            <span>Use supported formats: PNG, JPG, or JPEG</span>
+          </li>
+          <li>
+            <i class="fas fa-check"></i>
+            <span>Make sure the file size is under 10MB</span>
+          </li>
+          <li>
+            <i class="fas fa-check"></i>
+            <span>Try uploading a different image</span>
+          </li>
+        </ul>
+      </div>
 
-<div class="container py-2 mx-auto my-50 h-10 text-center" style="margin: 9rem;">
-  <div class="row">
-    <div class="col-sm py-2 py-md-3">
-      <div class="card card-body" style="justify-content: center; background-color:blanchedalmond">
-        <h1 class="text-center" style="color: black; font-size: 20px;"><b>Sorry we couldn't process your request
-            currently. <br> Please try again</b></h1>
-
-
-        <a href="{{ url_for('home') }}">
-          <button type="submit" class="btn btn-info text-center" style="
-        color: black;
-        font-weight: bold;
-        margin: 1rem;">
-            Try again
-          </button>
+      <div class="error-actions">
+        <a href="{{ url_for('home') }}" class="btn-action btn-action-primary">
+          <i class="fas fa-redo"></i>
+          Try Again
+        </a>
+        <a href="{{ url_for('home') }}" class="btn-action btn-action-secondary">
+          <i class="fas fa-home"></i>
+          Back to Home
         </a>
       </div>
     </div>
   </div>
-</div>
+</section>
+
 {% endblock %}

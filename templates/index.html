@@ -1,44 +1,187 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-<!-- banner -->
-<section class="banner_w3lspvt" id="home">
-    <div class="csslider infinity" id="slider1">
-        <div class="banner-top">
-            <div class="overlay">
-                <div class="container">
-                    <div class="w3layouts-banner-info text-center">
-                    </div>
-                </div>
-            </div>
+
+<!-- Hero Section -->
+<section class="hero-section" id="home">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="container">
+      <div class="hero-text">
+        <h1 class="hero-title">
+          <span class="title-line">Smart Agriculture</span>
+          <span class="title-line">for Modern Farmers</span>
+        </h1>
+        <p class="hero-subtitle">Harness the power of AI to optimize your crops, detect diseases early, and maximize your yield with data-driven insights.</p>
+        <div class="hero-buttons">
+          <a href="{{ url_for('crop_recommend') }}" class="btn-hero btn-primary-hero">
+            <i class="fas fa-seedling"></i>
+            Get Started
+          </a>
+          <a href="#services" class="btn-hero btn-secondary-hero">
+            <i class="fas fa-info-circle"></i>
+            Learn More
+          </a>
         </div>
+      </div>
     </div>
+  </div>
+  <div class="hero-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+  </div>
 </section>
-<!-- //banner -->
 
-<!-- File Upload Section -->
-<section class="file-upload py-5">
-    <div class="container py-md-4">
-        <h3 class="heading mb-sm-5 mb-4 text-center">Upload an Image for Disease Prediction</h3>
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <form id="upload-file" method="post" enctype="multipart/form-data" action="{{ url_for('upload') }}">
-                    <label for="file" bold >Select Image: <br> Click On below tab To select Image</label>
-                    <input type="file" name="file" id="file" accept=".png, .jpg, .jpeg" required class="form-control mb-3">
-                    <button type="submit" class="btn btn-primary btn-lg">Predict!</button>
-                </form>
-            </div>
+<!-- Features Section -->
+<section class="features-section" id="services">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-badge">Our Services</span>
+      <h2 class="section-title">Everything You Need for Smart Farming</h2>
+      <p class="section-description">Comprehensive AI-powered tools to help you make informed decisions and grow better crops.</p>
+    </div>
+    <div class="features-grid">
+      <!-- Feature Card 1: Crop Recommendation -->
+      <article class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-seedling"></i>
         </div>
+        <h3 class="feature-title">Crop Recommendation</h3>
+        <p class="feature-description">Get personalized crop recommendations based on your soil type, weather conditions, and location for optimal yield.</p>
+        <a href="{{ url_for('crop_recommend') }}" class="feature-link">
+          Try Now <i class="fas fa-arrow-right"></i>
+        </a>
+      </article>
+
+      <!-- Feature Card 2: Disease Detection -->
+      <article class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-microscope"></i>
+        </div>
+        <h3 class="feature-title">Disease Detection</h3>
+        <p class="feature-description">Upload a photo of your plant leaves and instantly identify diseases with our advanced AI-powered detection system.</p>
+        <a href="{{ url_for('disease_prediction') }}" class="feature-link">
+          Detect Now <i class="fas fa-arrow-right"></i>
+        </a>
+      </article>
+
+      <!-- Feature Card 3: Fertilizer Guide -->
+      <article class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-flask"></i>
+        </div>
+        <h3 class="feature-title">Fertilizer Guide</h3>
+        <p class="feature-description">Receive expert fertilizer recommendations tailored to your crop's specific nutrient needs and soil conditions.</p>
+        <a href="{{ url_for('fertilizer_recommendation') }}" class="feature-link">
+          Get Guide <i class="fas fa-arrow-right"></i>
+        </a>
+      </article>
+
+      <!-- Feature Card 4: Soil Analysis -->
+      <article class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-mountain"></i>
+        </div>
+        <h3 class="feature-title">Soil Analysis</h3>
+        <p class="feature-description">Analyze your soil type from images and get recommendations for the best crops suited for your land.</p>
+        <a href="{{ url_for('crop_recommend') }}" class="feature-link">
+          Analyze Now <i class="fas fa-arrow-right"></i>
+        </a>
+      </article>
     </div>
+  </div>
 </section>
 
-<!-- File Upload Section -->
+<!-- About/Mission Section -->
+<section class="about-section">
+  <div class="container">
+    <div class="about-content">
+      <div class="about-image">
+        <div class="image-wrapper">
+          <div class="image-overlay"></div>
+        </div>
+      </div>
+      <div class="about-text">
+        <span class="section-badge">About Us</span>
+        <h2 class="section-title">Empowering Farmers with Technology</h2>
+        <p class="about-description">At AgriTech, we believe in combining traditional farming wisdom with cutting-edge technology. Our mission is to help farmers make data-driven decisions that lead to better yields, reduced costs, and sustainable agricultural practices.</p>
+        <div class="about-stats">
+          <div class="stat-item">
+            <div class="stat-number">10K+</div>
+            <div class="stat-label">Active Farmers</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">95%</div>
+            <div class="stat-label">Accuracy Rate</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">50+</div>
+            <div class="stat-label">Crop Types</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- How It Works Section -->
+<section class="how-it-works-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-badge">Simple Process</span>
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-description">Get started in three simple steps</p>
+    </div>
+    <div class="steps-container">
+      <div class="step-item">
+        <div class="step-number">01</div>
+        <div class="step-icon">
+          <i class="fas fa-upload"></i>
+        </div>
+        <h3 class="step-title">Upload Data</h3>
+        <p class="step-description">Upload images of your crops, soil, or enter your field parameters</p>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step-item">
+        <div class="step-number">02</div>
+        <div class="step-icon">
+          <i class="fas fa-brain"></i>
+        </div>
+        <h3 class="step-title">AI Analysis</h3>
+        <p class="step-description">Our advanced AI algorithms analyze your data in seconds</p>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step-item">
+        <div class="step-number">03</div>
+        <div class="step-icon">
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <h3 class="step-title">Get Results</h3>
+        <p class="step-description">Receive detailed insights and actionable recommendations</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-
- 
-
-
-
+<!-- CTA Section -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-content">
+      <h2 class="cta-title">Ready to Transform Your Farming?</h2>
+      <p class="cta-description">Join thousands of farmers who are already using AgriTech to improve their yields and reduce costs.</p>
+      <div class="cta-buttons">
+        <a href="{{ url_for('register') }}" class="btn-cta btn-cta-primary">
+          <i class="fas fa-user-plus"></i>
+          Sign Up Free
+        </a>
+        <a href="{{ url_for('login') }}" class="btn-cta btn-cta-secondary">
+          <i class="fas fa-sign-in-alt"></i>
+          Login
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
 
 {% endblock %}

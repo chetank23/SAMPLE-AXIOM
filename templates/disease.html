@@ -1,33 +1,168 @@
 {% extends 'layout.html' %} 
 {% block body %}
 
-<style>
-  body {
-    background-color: rgb(206, 206, 228);
-  }
-</style>
+<!-- Page Header -->
+<section class="page-header">
+  <div class="container">
+    <div class="page-header-content">
+      <span class="page-badge">
+        <i class="fas fa-microscope"></i>
+        Disease Detection
+      </span>
+      <h1 class="page-title">Detect Plant Diseases Instantly</h1>
+      <p class="page-description">Upload a photo of your plant leaves and get instant AI-powered disease detection with treatment recommendations.</p>
+    </div>
+  </div>
+</section>
 
-<h2 style="text-align: center; color: black;">
-  <b>Find out which disease has affected your plant</b>
-</h2>
+<!-- Detection Section -->
+<section class="detection-section">
+  <div class="container">
+    <div class="detection-wrapper">
+      <div class="detection-card">
+        <div class="detection-header">
+          <div class="detection-icon">
+            <i class="fas fa-leaf"></i>
+          </div>
+          <h2 class="detection-title">Upload Plant Image</h2>
+          <p class="detection-subtitle">Our AI will analyze your plant and identify any diseases</p>
+        </div>
+        
+        <form method="post" enctype="multipart/form-data" class="detection-form">
+          {% if error %}
+          <div class="error-message-modern">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span>{{ error }}</span>
+          </div>
+          {% endif %}
+          
+          <div class="form-group-modern">
+            <label for="inputfile" class="form-label-modern">
+              <i class="fas fa-camera"></i>
+              Select Plant Image
+            </label>
+            <div class="file-input-wrapper">
+              <input type="file" required name="file" class="file-input-modern" id="inputfile" accept="image/*" onchange="preview_image(event)" />
+              <label for="inputfile" class="file-label-modern">
+                <i class="fas fa-folder-open"></i>
+                <span class="file-text">Choose Image File</span>
+                <span class="file-hint">PNG, JPG, JPEG up to 10MB</span>
+              </label>
+            </div>
+          </div>
+          
+          <div class="image-preview-wrapper" id="previewWrapper" style="display: none;">
+            <div class="preview-label">
+              <i class="fas fa-eye"></i>
+              Image Preview
+            </div>
+            <img id="output-image" class="preview-image-large" />
+          </div>
+          
+          <button type="submit" class="btn-submit-modern">
+            <i class="fas fa-search"></i>
+            <span>Detect Disease</span>
+            <i class="fas fa-arrow-right"></i>
+          </button>
+        </form>
+      </div>
+      
+      <!-- Info Card -->
+      <div class="info-card">
+        <h3 class="info-title">
+          <i class="fas fa-info-circle"></i>
+          What We Detect
+        </h3>
+        <div class="disease-list">
+          <div class="disease-category">
+            <h4 class="category-title">
+              <i class="fas fa-apple-alt"></i>
+              Apple Diseases
+            </h4>
+            <ul class="disease-items">
+              <li>Apple Scab</li>
+              <li>Black Rot</li>
+              <li>Cedar Apple Rust</li>
+            </ul>
+          </div>
+          <div class="disease-category">
+            <h4 class="category-title">
+              <i class="fas fa-pepper-hot"></i>
+              Tomato Diseases
+            </h4>
+            <ul class="disease-items">
+              <li>Early Blight</li>
+              <li>Late Blight</li>
+              <li>Bacterial Spot</li>
+              <li>Leaf Mold</li>
+            </ul>
+          </div>
+          <div class="disease-category">
+            <h4 class="category-title">
+              <i class="fas fa-seedling"></i>
+              Corn & Potato
+            </h4>
+            <ul class="disease-items">
+              <li>Common Rust</li>
+              <li>Northern Leaf Blight</li>
+              <li>Early Blight</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="info-tips">
+          <h4 class="tips-title">
+            <i class="fas fa-star"></i>
+            Best Practices
+          </h4>
+          <ul class="tips-list">
+            <li>Use clear, well-lit images</li>
+            <li>Focus on affected leaves</li>
+            <li>Include multiple angles if possible</li>
+            <li>Ensure good image quality</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<div style="width: 350px; margin: 2rem auto; color: black; border-radius: 25px; padding: 10px; font-weight: bold; background-color: #fff;">
-  <form class="form-signin" method="post" enctype="multipart/form-data">
-    <h4 class="mb-3 font-weight-normal "><b>Please Upload The Image</b></h4>
-    <input type="file" required name="file" class="form-control-file" id="inputfile" onchange="preview_image(event)" style="font-weight: bold;">
-    <br><br>
-    <img id="output-image" class="rounded mx-auto d-block" style="max-width: 100%; max-height: 300px;" />
-    <br><br>
-    <button class="btn btn-lg btn-primary btn-block" type="submit" style="font-weight: bold;">Predict</button>
-  </form>
-</div>
+<!-- Benefits Section -->
+<section class="benefits-section">
+  <div class="container">
+    <div class="benefits-grid">
+      <div class="benefit-item">
+        <i class="fas fa-bolt"></i>
+        <h3>Instant Results</h3>
+        <p>Get disease detection results in seconds, not days</p>
+      </div>
+      <div class="benefit-item">
+        <i class="fas fa-shield-alt"></i>
+        <h3>Early Detection</h3>
+        <p>Catch diseases early before they spread to your entire crop</p>
+      </div>
+      <div class="benefit-item">
+        <i class="fas fa-pills"></i>
+        <h3>Treatment Guide</h3>
+        <p>Receive specific treatment recommendations for each disease</p>
+      </div>
+      <div class="benefit-item">
+        <i class="fas fa-chart-line"></i>
+        <h3>Save Costs</h3>
+        <p>Reduce crop loss and minimize treatment expenses</p>
+      </div>
+    </div>
+  </div>
+</section>
 
 <script type="text/javascript">
   function preview_image(event) {
     var reader = new FileReader();
     reader.onload = function () {
       var output = document.getElementById('output-image');
+      var wrapper = document.getElementById('previewWrapper');
       output.src = reader.result;
+      wrapper.style.display = 'block';
     }
     reader.readAsDataURL(event.target.files[0]);
   }
