@@ -3,6 +3,32 @@
    Modern, responsive design with green/earthy colors
    ============================================ */
 
+/* Global Fix to Prevent Horizontal Scroll */
+html {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+}
+
+body {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Ensure all media elements are responsive */
+img, video, canvas, iframe, embed, object {
+  max-width: 100%;
+  height: auto;
+  box-sizing: border-box;
+}
+
+/* Prevent text overflow */
+* {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
 /* ========== CSS Variables ========== */
 :root {
   /* Primary Green Palette */
@@ -72,6 +98,9 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
 }
 
 body {
@@ -81,6 +110,17 @@ body {
   color: var(--dark-gray);
   background-color: var(--off-white);
   overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Touch-friendly */
+  -webkit-tap-highlight-color: rgba(45, 80, 22, 0.1);
+  touch-action: manipulation;
+  /* Prevent horizontal scroll */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 /* ========== Typography ========== */
@@ -90,17 +130,47 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.2;
   color: var(--primary-green-dark);
   margin-bottom: var(--spacing-md);
+  text-align: left;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+h1 {
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
 }
 
 p {
   margin-bottom: var(--spacing-sm);
   color: var(--gray);
+  text-align: left;
+  line-height: 1.6;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 a {
   text-decoration: none;
   color: inherit;
   transition: var(--transition-normal);
+}
+
+/* ========== Global Container Fixes ========== */
+.container {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.main-content {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 /* ========== Header & Navigation ========== */
@@ -111,6 +181,9 @@ a {
   background: var(--white);
   box-shadow: var(--shadow-sm);
   transition: var(--transition-normal);
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .navbar-modern {
@@ -121,6 +194,10 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 .navbar-brand-modern {
@@ -287,6 +364,9 @@ a {
     radial-gradient(circle at 80% 80%, rgba(90, 143, 58, 0.3) 0%, transparent 50%);
   overflow: hidden;
   padding: var(--spacing-xxl) 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .hero-overlay {
@@ -309,7 +389,10 @@ a {
   text-align: center;
   color: var(--white);
   max-width: 800px;
+  width: 100%;
   margin: 0 auto;
+  padding: 0 1rem;
+  box-sizing: border-box;
 }
 
 .hero-title {
@@ -452,6 +535,10 @@ a {
 .section-header {
   text-align: center;
   margin-bottom: var(--spacing-xxl);
+  width: 100%;
+  max-width: 100%;
+  padding: 0 1rem;
+  box-sizing: border-box;
 }
 
 .section-badge {
@@ -465,11 +552,18 @@ a {
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-bottom: var(--spacing-md);
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .section-title {
   font-size: clamp(2rem, 4vw, 2.75rem);
   margin-bottom: var(--spacing-md);
+  text-align: center;
+  line-height: 1.3;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .section-description {
@@ -477,12 +571,21 @@ a {
   color: var(--gray);
   max-width: 600px;
   margin: 0 auto;
+  text-align: center;
+  line-height: 1.8;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  padding: 0 1rem;
 }
 
 /* ========== Features Section ========== */
 .features-section {
   padding: var(--spacing-xxl) 0;
   background: var(--white);
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 .features-grid {
@@ -490,6 +593,10 @@ a {
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: var(--spacing-lg);
   margin-top: var(--spacing-xl);
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 .feature-card {
@@ -814,6 +921,10 @@ a {
   background: var(--primary-green-dark);
   color: var(--white);
   padding: var(--spacing-xxl) 0 var(--spacing-lg);
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 .footer-content {
@@ -1037,9 +1148,33 @@ a {
   }
   
   /* Page Components Responsive */
+  /* Stack cards vertically on mobile */
   .upload-wrapper,
   .detection-wrapper {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: var(--spacing-lg) !important;
+  }
+  
+  .upload-card,
+  .detection-card {
+    width: 100%;
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .result-grid {
+    grid-template-columns: 1fr !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: var(--spacing-lg) !important;
+  }
+  
+  .result-main-card,
+  .info-card {
+    width: 100%;
+    margin-bottom: var(--spacing-lg);
+    position: static !important;
   }
   
   .info-card {
@@ -1055,6 +1190,13 @@ a {
 
 /* Small Mobile */
 @media (max-width: 480px) {
+  /* Prevent horizontal scroll */
+  html, body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
   :root {
     --spacing-xxl: 3rem;
     --spacing-xl: 2rem;
@@ -1062,15 +1204,31 @@ a {
   
   .hero-title {
     font-size: 2rem;
+    word-wrap: break-word;
   }
   
   .section-title {
     font-size: 1.75rem;
+    word-wrap: break-word;
   }
   
   .feature-card,
   .step-item {
     padding: var(--spacing-md);
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  
+  /* Ensure all elements fit */
+  * {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  
+  img, video, canvas, iframe {
+    max-width: 100% !important;
+    height: auto !important;
   }
 }
 
@@ -1082,6 +1240,9 @@ a {
   text-align: center;
   position: relative;
   overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .page-header::before {
@@ -1099,7 +1260,10 @@ a {
   position: relative;
   z-index: 2;
   max-width: 800px;
+  width: 100%;
   margin: 0 auto;
+  padding: 0 1rem;
+  box-sizing: border-box;
 }
 
 .page-badge {
@@ -1115,12 +1279,21 @@ a {
   letter-spacing: 1px;
   margin-bottom: var(--spacing-md);
   backdrop-filter: blur(10px);
+  text-align: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .page-title {
   font-size: clamp(2rem, 4vw, 3rem);
   margin-bottom: var(--spacing-md);
   color: var(--white);
+  text-align: center;
+  line-height: 1.3;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  padding: 0 1rem;
 }
 
 .page-description {
@@ -1128,6 +1301,10 @@ a {
   opacity: 0.95;
   line-height: 1.8;
   color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  padding: 0 1rem;
 }
 
 /* ========== Upload/Detection Sections ========== */
@@ -1135,6 +1312,10 @@ a {
 .detection-section {
   padding: var(--spacing-xxl) 0;
   background: var(--off-white);
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 .upload-wrapper,
@@ -1143,7 +1324,10 @@ a {
   grid-template-columns: 1.5fr 1fr;
   gap: var(--spacing-xl);
   max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 .upload-card,
@@ -1153,12 +1337,22 @@ a {
   padding: var(--spacing-xl);
   box-shadow: var(--shadow-lg);
   border: 1px solid var(--light-gray);
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .upload-header,
 .detection-header {
   text-align: center;
   margin-bottom: var(--spacing-xl);
+  width: 100%;
+  max-width: 100%;
+  padding: 0 1rem;
+  box-sizing: border-box;
 }
 
 .upload-icon,
@@ -1181,12 +1375,21 @@ a {
   font-size: 1.75rem;
   margin-bottom: var(--spacing-sm);
   color: var(--primary-green-dark);
+  text-align: center;
+  line-height: 1.3;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .upload-subtitle,
 .detection-subtitle {
   color: var(--gray);
   font-size: 1rem;
+  text-align: center;
+  line-height: 1.6;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  margin-bottom: var(--spacing-lg);
 }
 
 /* Form Styles */
@@ -1313,12 +1516,15 @@ a {
 
 .preview-image-large {
   width: 100%;
+  max-width: 100%;
   max-height: 400px;
   object-fit: contain;
   border-radius: var(--radius-md);
   border: 2px solid var(--light-gray);
   background: var(--off-white);
   padding: var(--spacing-sm);
+  box-sizing: border-box;
+  display: block;
 }
 
 .btn-submit-modern {
@@ -1418,6 +1624,24 @@ a {
   background: var(--dark-gray);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-md);
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  box-sizing: border-box;
+}
+
+/* Responsive Images and Videos */
+img, video, canvas {
+  max-width: 100%;
+  height: auto;
+  box-sizing: border-box;
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .camera-controls {
@@ -1523,6 +1747,12 @@ a {
   height: fit-content;
   position: sticky;
   top: 100px;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .info-title {
@@ -1692,12 +1922,20 @@ a {
 .benefits-section {
   padding: var(--spacing-xxl) 0;
   background: linear-gradient(135deg, var(--off-white) 0%, var(--white) 100%);
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 .benefits-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: var(--spacing-lg);
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 .benefit-item {
@@ -1737,6 +1975,10 @@ a {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 var(--spacing-md);
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 .text-center {
@@ -1842,6 +2084,10 @@ a {
   grid-template-columns: 1.5fr 1fr;
   gap: var(--spacing-xl);
   margin-bottom: var(--spacing-xl);
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 .result-main-card {
@@ -1850,6 +2096,12 @@ a {
   padding: var(--spacing-xl);
   box-shadow: var(--shadow-lg);
   border: 1px solid var(--light-gray);
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .result-image-section {
@@ -1880,16 +2132,24 @@ a {
 
 .result-image {
   width: 100%;
+  max-width: 100%;
   height: auto;
   max-height: 500px;
   object-fit: contain;
   border-radius: var(--radius-sm);
   display: block;
+  box-sizing: border-box;
 }
 
 .prediction-section {
   padding-top: var(--spacing-lg);
   border-top: 2px solid var(--light-gray);
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .prediction-header {
@@ -1902,6 +2162,11 @@ a {
   gap: var(--spacing-xs);
   font-size: 1.75rem;
   color: var(--primary-green-dark);
+  text-align: left;
+  line-height: 1.3;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  flex-wrap: wrap;
 }
 
 .prediction-title i {
@@ -1925,7 +2190,10 @@ a {
   font-weight: 700;
   color: var(--primary-green-dark);
   margin-bottom: var(--spacing-md);
-  line-height: 1.2;
+  line-height: 1.3;
+  text-align: left;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .prediction-score {
@@ -2301,18 +2569,39 @@ a {
 
 /* Responsive for Result Pages */
 @media (max-width: 768px) {
+  /* Stack all cards vertically */
   .result-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+  
+  .result-main-card {
+    width: 100%;
+    margin-bottom: var(--spacing-lg);
+    order: 1;
+  }
+  
+  .info-card {
+    width: 100%;
+    margin-bottom: var(--spacing-lg);
+    position: static !important;
+    top: auto !important;
+    order: 2;
   }
   
   .recommendation-card {
     position: static;
     margin-top: var(--spacing-lg);
+    width: 100%;
+    order: 3;
   }
   
   .result-actions,
   .error-actions {
     flex-direction: column;
+    gap: var(--spacing-md);
   }
   
   .btn-action {
@@ -2322,6 +2611,547 @@ a {
   
   .info-cards-grid {
     grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
+  
+  /* Ensure upload and detection wrappers stack */
+  .upload-wrapper,
+  .detection-wrapper {
+    grid-template-columns: 1fr !important;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+  
+  .upload-card,
+  .detection-card {
+    width: 100%;
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  /* Enhanced Mobile Styles - Prevent Horizontal Scroll */
+  html, body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    position: relative;
+  }
+  
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box;
+  }
+  
+  /* Ensure all elements are constrained */
+  * {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Responsive images and videos */
+  img, video, canvas, iframe {
+    max-width: 100% !important;
+    height: auto !important;
+    width: auto !important;
+  }
+  
+  /* Fix text overflow */
+  p, h1, h2, h3, h4, h5, h6, span, div, a, button, input, textarea, select, label {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+  }
+  
+  /* Fix table overflow */
+  table {
+    width: 100% !important;
+    max-width: 100% !important;
+    table-layout: fixed;
+    display: block;
+    overflow-x: auto;
+  }
+  
+  /* Fix all sections */
+  section {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+  
+  /* Fix cards and wrappers */
+  .upload-card, .detection-card, .info-card, .upload-wrapper, .detection-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+  
+  /* Navigation Mobile */
+  .navbar-modern {
+    padding: 0.75rem 0;
+  }
+  
+  .navbar-brand-modern {
+    font-size: 1.25rem;
+  }
+  
+  .language-selector {
+    margin-left: 0 !important;
+    margin-top: 0.5rem;
+  }
+  
+  .language-selector select {
+    width: 100%;
+    font-size: 0.9rem;
+  }
+  
+  /* Forms Mobile */
+  .detection-form,
+  .upload-form {
+    padding: 1rem;
+  }
+  
+  .form-group-modern {
+    margin-bottom: 1.5rem;
+  }
+  
+  .input-mode-toggle {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .input-mode-toggle .mode-btn {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+  
+  .file-input-wrapper,
+  .camera-wrapper {
+    width: 100%;
+  }
+  
+  .camera-controls {
+    flex-direction: column;
+    gap: 0.75rem !important;
+  }
+  
+  .camera-controls button {
+    width: 100%;
+    padding: 0.75rem !important;
+    font-size: 0.9rem !important;
+  }
+  
+  .file-label-modern {
+    padding: 1.5rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .file-text {
+    font-size: 0.9rem;
+  }
+  
+  .file-hint {
+    font-size: 0.8rem;
+  }
+  
+  /* Image Preview Mobile */
+  .image-preview-wrapper,
+  .file-preview {
+    margin-top: 1rem;
+  }
+  
+  .preview-image-large,
+  .preview-image {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .result-image-wrapper {
+    padding: 0.5rem;
+  }
+  
+  .result-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  /* Cards Mobile - Stack vertically */
+  .detection-card,
+  .upload-card,
+  .info-card {
+    padding: 1.5rem 1rem;
+    margin-bottom: var(--spacing-lg);
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  .upload-wrapper,
+  .detection-wrapper {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: var(--spacing-lg) !important;
+  }
+  
+  .result-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: var(--spacing-lg) !important;
+  }
+  
+  .result-main-card,
+  .info-card {
+    width: 100% !important;
+    margin-bottom: var(--spacing-lg) !important;
+    position: static !important;
+  }
+  
+  .detection-header,
+  .upload-header {
+    margin-bottom: 1.5rem;
+  }
+  
+  .detection-title,
+  .upload-title {
+    font-size: 1.5rem;
+    text-align: center;
+    line-height: 1.3;
+  }
+  
+  .detection-subtitle,
+  .upload-subtitle {
+    font-size: 0.9rem;
+    text-align: center;
+    line-height: 1.6;
+  }
+  
+  /* Buttons Mobile */
+  .btn-submit-modern,
+  .btn-action {
+    width: 100%;
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .btn-submit-modern:last-child,
+  .btn-action:last-child {
+    margin-bottom: 0;
+  }
+  
+  /* Page Header Mobile */
+  .page-header {
+    padding: 2rem 0;
+  }
+  
+  .page-title {
+    font-size: 1.75rem;
+    margin-bottom: 0.75rem;
+    text-align: center;
+    line-height: 1.3;
+    padding: 0 1rem;
+  }
+  
+  .page-description {
+    font-size: 0.9rem;
+    padding: 0 1rem;
+    text-align: center;
+    line-height: 1.6;
+  }
+  
+  /* Result Pages Mobile */
+  .result-header {
+    padding: 1.5rem 0;
+  }
+  
+  .result-title {
+    font-size: 1.5rem;
+  }
+  
+  .result-subtitle {
+    font-size: 0.9rem;
+  }
+  
+  .prediction-section {
+    padding: 1rem;
+  }
+  
+  .prediction-title {
+    font-size: 1.25rem;
+  }
+  
+  .disease-name {
+    font-size: 1.25rem;
+  }
+  
+  .confidence-bar-wrapper {
+    margin-top: 1rem;
+  }
+  
+  /* Benefits/Features Grid Mobile */
+  .benefits-grid,
+  .features-preview-grid {
+    gap: 1rem;
+  }
+  
+  .benefit-item,
+  .preview-item {
+    padding: 1.5rem 1rem;
+  }
+  
+  .benefit-item i,
+  .preview-item i {
+    font-size: 2rem;
+  }
+  
+  .benefit-item h3,
+  .preview-item h3 {
+    font-size: 1.1rem;
+  }
+  
+  .benefit-item p,
+  .preview-item p {
+    font-size: 0.85rem;
+  }
+  
+  /* Footer Mobile */
+  .footer-content {
+    gap: 2rem;
+    text-align: center;
+  }
+  
+  .footer-section {
+    margin-bottom: 2rem;
+  }
+  
+  .footer-title {
+    font-size: 1.25rem;
+  }
+  
+  .footer-heading {
+    font-size: 1rem;
+  }
+  
+  .social-links {
+    justify-content: center;
+    margin-top: 1rem;
+  }
+  
+  /* Info Cards Mobile */
+  .info-list,
+  .tips-list {
+    padding-left: 1.25rem;
+  }
+  
+  .info-item,
+  .tips-list li {
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  /* Disease Result Mobile */
+  .symptoms-box,
+  .treatment-box {
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+  
+  .symptoms-box h4,
+  .treatment-box h4 {
+    font-size: 1rem;
+  }
+  
+  .symptoms-list {
+    font-size: 0.9rem;
+  }
+  
+  /* Fertilizer Result Mobile */
+  .fertilizer-recommendation {
+    padding: 1rem;
+  }
+  
+  .fertilizer-recommendation h3 {
+    font-size: 1.1rem;
+  }
+  
+  .fertilizer-recommendation p {
+    font-size: 0.9rem;
+  }
+  
+  /* Crop Result Mobile */
+  .crop-badges {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .crop-badge {
+    font-size: 0.85rem;
+    padding: 0.5rem 0.75rem;
+  }
+}
+
+/* Extra Small Mobile */
+@media (max-width: 480px) {
+  /* Force no horizontal scroll */
+  html, body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  .container {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box;
+  }
+  
+  /* Ensure all elements fit */
+  * {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  
+  img, video, canvas, iframe {
+    max-width: 100% !important;
+    height: auto !important;
+    width: auto !important;
+  }
+  
+  /* Fix all sections and containers */
+  section, .container, .main-content, .upload-section, .detection-section {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+  
+  .page-title {
+    font-size: 1.5rem;
+    word-wrap: break-word;
+  }
+  
+  .detection-title,
+  .upload-title {
+    font-size: 1.25rem;
+    word-wrap: break-word;
+    text-align: center;
+    line-height: 1.3;
+  }
+  
+  .page-description {
+    text-align: center;
+    padding: 0 1rem;
+  }
+  
+  .detection-subtitle,
+  .upload-subtitle {
+    text-align: center;
+    line-height: 1.6;
+  }
+  
+  .btn-submit-modern {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .camera-controls button {
+    padding: 0.625rem !important;
+    font-size: 0.85rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  .file-label-modern {
+    padding: 1.25rem 0.75rem;
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .detection-card,
+  .upload-card,
+  .info-card {
+    padding: 1rem 0.75rem;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    margin-bottom: var(--spacing-lg) !important;
+  }
+  
+  /* Stack all cards vertically on extra small mobile */
+  .upload-wrapper,
+  .detection-wrapper {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: var(--spacing-lg) !important;
+  }
+  
+  .result-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: var(--spacing-lg) !important;
+  }
+  
+  .result-main-card,
+  .info-card {
+    position: static !important;
+    top: auto !important;
+    margin-bottom: var(--spacing-lg) !important;
+  }
+  
+  .result-image-wrapper {
+    padding: 0.25rem;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  
+  .prediction-section {
+    padding: 0.75rem;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  
+  .disease-name {
+    font-size: 1.1rem;
+    word-wrap: break-word;
+  }
+  
+  .benefit-item,
+  .preview-item {
+    padding: 1rem 0.75rem;
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .benefit-item i,
+  .preview-item i {
+    font-size: 1.75rem;
+  }
+}
+
+/* Landscape Mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+  .hero-section {
+    min-height: 60vh;
+    padding: 1.5rem 0;
+  }
+  
+  .page-header {
+    padding: 1.5rem 0;
+  }
+  
+  .nav-menu {
+    max-height: calc(100vh - 70px);
+    overflow-y: auto;
   }
 }
 

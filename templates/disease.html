@@ -7,10 +7,10 @@
     <div class="page-header-content">
       <span class="page-badge">
         <i class="fas fa-microscope"></i>
-        Disease Detection
+        {{ translate('disease_detection') }}
       </span>
-      <h1 class="page-title">Detect Plant Diseases Instantly</h1>
-      <p class="page-description">Upload a photo of your plant leaves and get instant AI-powered disease detection with treatment recommendations.</p>
+      <h1 class="page-title">{{ translate('detect_plant_diseases') }}</h1>
+      <p class="page-description">{{ translate('upload_photo_description') }}</p>
     </div>
   </div>
 </section>
@@ -24,8 +24,8 @@
           <div class="detection-icon">
             <i class="fas fa-leaf"></i>
           </div>
-          <h2 class="detection-title">Upload Plant Image</h2>
-          <p class="detection-subtitle">Our AI will analyze your plant and identify any diseases</p>
+          <h2 class="detection-title">{{ translate('upload_plant_image') }}</h2>
+          <p class="detection-subtitle">{{ translate('ai_will_analyze') }}</p>
         </div>
         
         <form method="post" enctype="multipart/form-data" class="detection-form" onsubmit="return validateForm(event)">
@@ -39,18 +39,18 @@
           <div class="form-group-modern">
             <label class="form-label-modern">
               <i class="fas fa-camera"></i>
-              Select Plant Image
+              {{ translate('select_plant_image') }}
             </label>
             
             <!-- Mode Toggle -->
             <div class="input-mode-toggle">
               <button type="button" class="mode-btn active" id="uploadModeBtn" onclick="switchMode('upload')">
                 <i class="fas fa-upload"></i>
-                Upload File
+                {{ translate('upload_file') }}
               </button>
               <button type="button" class="mode-btn" id="cameraModeBtn" onclick="switchMode('camera')">
                 <i class="fas fa-camera"></i>
-                Use Camera
+                {{ translate('use_camera') }}
               </button>
             </div>
             
@@ -59,7 +59,7 @@
               <input type="file" name="file" class="file-input-modern" id="inputfile" accept="image/*" onchange="preview_image(event)" />
               <label for="inputfile" class="file-label-modern">
                 <i class="fas fa-folder-open"></i>
-                <span class="file-text">Choose Image File</span>
+                <span class="file-text">{{ translate('choose_image_file') }}</span>
                 <span class="file-hint">PNG, JPG, JPEG up to 10MB</span>
               </label>
             </div>
@@ -67,27 +67,36 @@
             <!-- Camera Mode -->
             <div class="camera-wrapper" id="cameraMode" style="display: none;">
               <div class="camera-container">
-                <video id="video" autoplay playsinline style="width: 100%; max-width: 500px; border-radius: 8px; display: none;"></video>
+                <div id="cameraInstructions" style="padding: 15px; background: #e7f3ff; border-left: 4px solid #007bff; border-radius: 5px; margin-bottom: 15px; color: #004085;">
+                  <strong><i class="fas fa-info-circle"></i> Camera Instructions:</strong>
+                  <ul style="margin: 8px 0 0 20px; font-size: 0.9em;">
+                    <li>Click "Start Camera" below</li>
+                    <li>Allow camera access when your browser asks for permission</li>
+                    <li>Position your plant in the camera view</li>
+                    <li>Click "Capture Photo" to take the picture</li>
+                  </ul>
+                </div>
+                <video id="video" autoplay playsinline style="width: 100%; max-width: 500px; border-radius: 8px; display: none; background: #000;"></video>
                 <canvas id="canvas" style="display: none;"></canvas>
-                <div class="camera-controls">
-                  <button type="button" class="btn-camera-start" id="startCameraBtn" onclick="startCamera()">
+                <div class="camera-controls" style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 15px;">
+                  <button type="button" class="btn-camera-start" id="startCameraBtn" onclick="startCamera()" style="padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 1em;">
                     <i class="fas fa-video"></i>
-                    Start Camera
+                    {{ translate('start_camera') }}
                   </button>
-                  <button type="button" class="btn-camera-capture" id="captureBtn" onclick="captureImage()" style="display: none;">
+                  <button type="button" class="btn-camera-capture" id="captureBtn" onclick="captureImage()" style="display: none; padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
                     <i class="fas fa-camera"></i>
-                    Capture Photo
+                    {{ translate('capture_photo') }}
                   </button>
-                  <button type="button" class="btn-camera-stop" id="stopCameraBtn" onclick="stopCamera()" style="display: none;">
+                  <button type="button" class="btn-camera-stop" id="stopCameraBtn" onclick="stopCamera()" style="display: none; padding: 10px 20px; background: #dc3545; color: white; border: none; border-radius: 5px; cursor: pointer;">
                     <i class="fas fa-stop"></i>
-                    Stop Camera
+                    {{ translate('stop_camera') }}
                   </button>
-                  <button type="button" class="btn-camera-retake" id="retakeBtn" onclick="retakePhoto()" style="display: none;">
+                  <button type="button" class="btn-camera-retake" id="retakeBtn" onclick="retakePhoto()" style="display: none; padding: 10px 20px; background: #ffc107; color: #000; border: none; border-radius: 5px; cursor: pointer;">
                     <i class="fas fa-redo"></i>
-                    Retake
+                    {{ translate('retake') }}
                   </button>
                 </div>
-                <div id="cameraError" class="error-message-modern" style="display: none;"></div>
+                <div id="cameraError" class="error-message-modern" style="display: none; margin-top: 15px; padding: 10px; background: #f8d7da; color: #721c24; border-radius: 5px;"></div>
               </div>
             </div>
           </div>
@@ -95,14 +104,14 @@
           <div class="image-preview-wrapper" id="previewWrapper" style="display: none;">
             <div class="preview-label">
               <i class="fas fa-eye"></i>
-              Image Preview
+              {{ translate('image_preview') }}
             </div>
             <img id="output-image" class="preview-image-large" />
           </div>
           
           <button type="submit" class="btn-submit-modern">
             <i class="fas fa-search"></i>
-            <span>Detect Disease</span>
+            <span>{{ translate('detect_disease') }}</span>
             <i class="fas fa-arrow-right"></i>
           </button>
         </form>
@@ -111,58 +120,15 @@
       <!-- Info Card -->
       <div class="info-card">
         <h3 class="info-title">
-          <i class="fas fa-info-circle"></i>
-          What We Detect
+          <i class="fas fa-lightbulb"></i>
+          {{ translate('best_practices') }}
         </h3>
-        <div class="disease-list">
-          <div class="disease-category">
-            <h4 class="category-title">
-              <i class="fas fa-apple-alt"></i>
-              Apple Diseases
-            </h4>
-            <ul class="disease-items">
-              <li>Apple Scab</li>
-              <li>Black Rot</li>
-              <li>Cedar Apple Rust</li>
-            </ul>
-          </div>
-          <div class="disease-category">
-            <h4 class="category-title">
-              <i class="fas fa-pepper-hot"></i>
-              Tomato Diseases
-            </h4>
-            <ul class="disease-items">
-              <li>Early Blight</li>
-              <li>Late Blight</li>
-              <li>Bacterial Spot</li>
-              <li>Leaf Mold</li>
-            </ul>
-          </div>
-          <div class="disease-category">
-            <h4 class="category-title">
-              <i class="fas fa-seedling"></i>
-              Corn & Potato
-            </h4>
-            <ul class="disease-items">
-              <li>Common Rust</li>
-              <li>Northern Leaf Blight</li>
-              <li>Early Blight</li>
-            </ul>
-          </div>
-        </div>
-        
-        <div class="info-tips">
-          <h4 class="tips-title">
-            <i class="fas fa-star"></i>
-            Best Practices
-          </h4>
-          <ul class="tips-list">
-            <li>Use clear, well-lit images</li>
-            <li>Focus on affected leaves</li>
-            <li>Include multiple angles if possible</li>
-            <li>Ensure good image quality</li>
-          </ul>
-        </div>
+        <ul class="tips-list">
+          <li>{{ translate('use_clear_images') }}</li>
+          <li>{{ translate('focus_on_leaves') }}</li>
+          <li>{{ translate('include_angles') }}</li>
+          <li>{{ translate('ensure_quality') }}</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -174,23 +140,23 @@
     <div class="benefits-grid">
       <div class="benefit-item">
         <i class="fas fa-bolt"></i>
-        <h3>Instant Results</h3>
-        <p>Get disease detection results in seconds, not days</p>
+        <h3>{{ translate('instant_results') }}</h3>
+        <p>{{ translate('results_in_seconds') }}</p>
       </div>
       <div class="benefit-item">
         <i class="fas fa-shield-alt"></i>
-        <h3>Early Detection</h3>
-        <p>Catch diseases early before they spread to your entire crop</p>
+        <h3>{{ translate('early_detection') }}</h3>
+        <p>{{ translate('catch_diseases_early') }}</p>
       </div>
       <div class="benefit-item">
         <i class="fas fa-pills"></i>
-        <h3>Treatment Guide</h3>
-        <p>Receive specific treatment recommendations for each disease</p>
+        <h3>{{ translate('treatment_guide') }}</h3>
+        <p>{{ translate('specific_recommendations') }}</p>
       </div>
       <div class="benefit-item">
         <i class="fas fa-chart-line"></i>
-        <h3>Save Costs</h3>
-        <p>Reduce crop loss and minimize treatment expenses</p>
+        <h3>{{ translate('save_costs') }}</h3>
+        <p>{{ translate('reduce_crop_loss') }}</p>
       </div>
     </div>
   </div>
@@ -234,44 +200,169 @@
     const startBtn = document.getElementById('startCameraBtn');
     const captureBtn = document.getElementById('captureBtn');
     const stopBtn = document.getElementById('stopCameraBtn');
+    const retakeBtn = document.getElementById('retakeBtn');
     const errorDiv = document.getElementById('cameraError');
+    const previewWrapper = document.getElementById('previewWrapper');
     
+    // Save original button text for restoration
+    const startBtnText = startBtn.innerHTML;
+    
+    // Hide preview and reset state
+    previewWrapper.style.display = 'none';
     errorDiv.style.display = 'none';
+    retakeBtn.style.display = 'none';
+    
+    // Stop any existing stream first
+    if (stream) {
+      stream.getTracks().forEach(track => track.stop());
+      stream = null;
+    }
+    
+    // Check if we're on HTTPS or localhost (required for camera access)
+    // Note: Most browsers allow camera on localhost even without HTTPS
+    const isLocalhost = location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.hostname === '0.0.0.0';
+    const isSecure = location.protocol === 'https:' || window.isSecureContext;
+    
+    if (!isSecure && !isLocalhost) {
+      errorDiv.innerHTML = '<i class="fas fa-exclamation-triangle"></i> <span><strong>Camera access requires HTTPS or localhost.</strong><br><small>Please access the site via http://localhost:5000 or use HTTPS.</small></span>';
+      errorDiv.style.display = 'block';
+      return;
+    }
     
     try {
-      // Request camera access with constraints
-      // Prefer facingMode: 'environment' (back camera) for mobile, fallback to 'user' (front camera)
-      const constraints = {
-        video: {
-          facingMode: { ideal: 'environment' }, // Back camera preferred
-          width: { ideal: 1280 },
-          height: { ideal: 720 }
+      // Check if getUserMedia is supported
+      if (!navigator.mediaDevices) {
+        // Try legacy API
+        navigator.mediaDevices = {};
+        navigator.mediaDevices.getUserMedia = navigator.mediaDevices.getUserMedia ||
+          navigator.webkitGetUserMedia ||
+          navigator.mozGetUserMedia ||
+          navigator.msGetUserMedia;
+      }
+      
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        throw new Error('getUserMedia is not supported in this browser. Please use a modern browser like Chrome, Firefox, Edge, or Safari.');
+      }
+      
+      // Show loading state
+      startBtn.disabled = true;
+      startBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Starting...';
+      
+      // Try multiple constraint combinations
+      const constraintAttempts = [
+        // First try: Preferred settings with back camera
+        {
+          video: {
+            facingMode: { ideal: 'environment' },
+            width: { ideal: 1280, min: 640 },
+            height: { ideal: 720, min: 480 }
+          }
+        },
+        // Second try: Any camera with preferred resolution
+        {
+          video: {
+            width: { ideal: 1280, min: 640 },
+            height: { ideal: 720, min: 480 }
+          }
+        },
+        // Third try: Any camera, any resolution
+        {
+          video: true
+        },
+        // Fourth try: Front camera as fallback
+        {
+          video: {
+            facingMode: 'user'
+          }
         }
-      };
+      ];
       
-      stream = await navigator.mediaDevices.getUserMedia(constraints);
-      video.srcObject = stream;
-      video.style.display = 'block';
+      let lastError = null;
       
-      startBtn.style.display = 'none';
-      captureBtn.style.display = 'inline-block';
-      stopBtn.style.display = 'inline-block';
+      for (let i = 0; i < constraintAttempts.length; i++) {
+        try {
+          console.log(`Trying camera constraints attempt ${i + 1}...`);
+          stream = await navigator.mediaDevices.getUserMedia(constraintAttempts[i]);
+          
+          // Success! Set up video
+          video.srcObject = stream;
+          video.style.display = 'block';
+          
+          // Hide instructions when camera starts
+          const instructions = document.getElementById('cameraInstructions');
+          if (instructions) instructions.style.display = 'none';
+          
+          // Update button visibility
+          startBtn.disabled = false;
+          startBtn.style.display = 'none';
+          startBtn.innerHTML = startBtnText; // Restore original text
+          captureBtn.style.display = 'inline-block';
+          stopBtn.style.display = 'inline-block';
+          
+          // Wait for video to be ready and play
+          video.onloadedmetadata = () => {
+            video.play().catch(err => {
+              console.error('Error playing video:', err);
+            });
+          };
+          
+          // Handle video errors
+          video.onerror = (e) => {
+            console.error('Video error:', e);
+            errorDiv.innerHTML = '<i class="fas fa-exclamation-triangle"></i> <span>Error displaying camera feed. Please try again.</span>';
+            errorDiv.style.display = 'block';
+          };
+          
+          // Success - exit function
+          return;
+          
+        } catch (attemptError) {
+          console.log(`Attempt ${i + 1} failed:`, attemptError);
+          lastError = attemptError;
+          // Continue to next attempt
+        }
+      }
       
-      // Wait for video to be ready
-      video.onloadedmetadata = () => {
-        video.play();
-      };
+      // All attempts failed, throw the last error
+      throw lastError || new Error('All camera access attempts failed');
+      
     } catch (error) {
       console.error('Error accessing camera:', error);
-      errorDiv.innerHTML = '<i class="fas fa-exclamation-triangle"></i> <span>Unable to access camera. Please check permissions or try uploading a file instead.</span>';
-      errorDiv.style.display = 'block';
       
-      // If getUserMedia is not supported
-      if (error.name === 'NotAllowedError') {
-        errorDiv.innerHTML = '<i class="fas fa-exclamation-triangle"></i> <span>Camera permission denied. Please allow camera access in your browser settings.</span>';
-      } else if (error.name === 'NotFoundError') {
-        errorDiv.innerHTML = '<i class="fas fa-exclamation-triangle"></i> <span>No camera found. Please use file upload instead.</span>';
+      // Reset UI
+      startBtn.disabled = false;
+      startBtn.style.display = 'inline-block';
+      startBtn.innerHTML = startBtnText; // Restore original text
+      captureBtn.style.display = 'none';
+      stopBtn.style.display = 'none';
+      video.style.display = 'none';
+      
+      // Show appropriate error message with helpful guidance
+      let errorMessage = '';
+      let helpText = '';
+      
+      if (error.name === 'NotAllowedError' || error.name === 'PermissionDeniedError') {
+        errorMessage = 'Camera permission denied.';
+        helpText = 'Please click the camera icon in your browser\'s address bar and allow camera access, then try again.';
+      } else if (error.name === 'NotFoundError' || error.name === 'DevicesNotFoundError') {
+        errorMessage = 'No camera found.';
+        helpText = 'Please connect a camera device or use file upload instead.';
+      } else if (error.name === 'NotReadableError' || error.name === 'TrackStartError') {
+        errorMessage = 'Camera is already in use.';
+        helpText = 'Another application is using your camera. Please close other apps (Zoom, Teams, etc.) and try again.';
+      } else if (error.name === 'OverconstrainedError' || error.name === 'ConstraintNotSatisfiedError') {
+        errorMessage = 'Camera does not support the required settings.';
+        helpText = 'Your camera may not support the requested resolution. Please try using file upload instead.';
+      } else if (error.message && error.message.includes('not supported')) {
+        errorMessage = 'Camera access not supported.';
+        helpText = 'Please use a modern browser like Chrome, Firefox, Edge, or Safari.';
+      } else {
+        errorMessage = 'Unable to access camera.';
+        helpText = 'Please check your browser permissions or try uploading a file instead.';
       }
+      
+      errorDiv.innerHTML = '<i class="fas fa-exclamation-triangle"></i> <strong>' + errorMessage + '</strong><br><small>' + helpText + '</small>';
+      errorDiv.style.display = 'block';
     }
   }
 
@@ -287,6 +378,7 @@
     const captureBtn = document.getElementById('captureBtn');
     const stopBtn = document.getElementById('stopCameraBtn');
     const retakeBtn = document.getElementById('retakeBtn');
+    const instructions = document.getElementById('cameraInstructions');
     
     video.srcObject = null;
     video.style.display = 'none';
@@ -294,6 +386,9 @@
     captureBtn.style.display = 'none';
     stopBtn.style.display = 'none';
     retakeBtn.style.display = 'none';
+    
+    // Show instructions again when camera stops
+    if (instructions) instructions.style.display = 'block';
   }
 
   // Capture image from camera
@@ -303,47 +398,110 @@
     const captureBtn = document.getElementById('captureBtn');
     const stopBtn = document.getElementById('stopCameraBtn');
     const retakeBtn = document.getElementById('retakeBtn');
+    const inputfile = document.getElementById('inputfile');
     
-    // Set canvas dimensions to match video
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
+    // Check if video is ready
+    if (!video || !video.videoWidth || !video.videoHeight) {
+      alert('Camera is not ready. Please wait for the camera to start.');
+      return;
+    }
     
-    // Draw video frame to canvas
-    const ctx = canvas.getContext('2d');
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-    
-    // Convert canvas to blob
-    canvas.toBlob(function(blob) {
-      capturedImageBlob = blob;
+    try {
+      // Set canvas dimensions to match video
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
       
-      // Create a File object from the blob
-      const file = new File([blob], 'captured-image.jpg', { type: 'image/jpeg' });
+      // Draw video frame to canvas
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
       
-      // Create a FileList-like object and assign to file input
-      const dataTransfer = new DataTransfer();
-      dataTransfer.items.add(file);
-      document.getElementById('inputfile').files = dataTransfer.files;
-      
-      // Show preview
-      const output = document.getElementById('output-image');
-      const wrapper = document.getElementById('previewWrapper');
-      output.src = canvas.toDataURL('image/jpeg');
-      wrapper.style.display = 'block';
-      
-      // Update button visibility
-      captureBtn.style.display = 'none';
-      stopBtn.style.display = 'none';
-      retakeBtn.style.display = 'inline-block';
-      
-      // Stop camera stream
-      stopCamera();
-    }, 'image/jpeg', 0.95);
+      // Convert canvas to blob and create file
+      canvas.toBlob(function(blob) {
+        if (!blob) {
+          alert('Failed to capture image. Please try again.');
+          return;
+        }
+        
+        capturedImageBlob = blob;
+        
+        // Create a File object from the blob
+        const file = new File([blob], 'captured-image.jpg', { 
+          type: 'image/jpeg',
+          lastModified: Date.now()
+        });
+        
+        // Create a FileList-like object and assign to file input
+        // Use DataTransfer API if available, otherwise use direct assignment
+        try {
+          const dataTransfer = new DataTransfer();
+          dataTransfer.items.add(file);
+          inputfile.files = dataTransfer.files;
+        } catch (e) {
+          // Fallback for browsers that don't support DataTransfer
+          // Create a new FileList manually
+          const fileList = {
+            0: file,
+            length: 1,
+            item: function(index) { return index === 0 ? file : null; },
+            [Symbol.iterator]: function* () { yield file; }
+          };
+          Object.setPrototypeOf(fileList, FileList.prototype);
+          Object.defineProperty(inputfile, 'files', {
+            value: fileList,
+            writable: false,
+            configurable: true
+          });
+        }
+        
+        // Trigger change event to ensure form recognizes the file
+        const changeEvent = new Event('change', { bubbles: true });
+        inputfile.dispatchEvent(changeEvent);
+        
+        // Show preview
+        const output = document.getElementById('output-image');
+        const wrapper = document.getElementById('previewWrapper');
+        output.src = canvas.toDataURL('image/jpeg');
+        wrapper.style.display = 'block';
+        
+        // Update button visibility
+        captureBtn.style.display = 'none';
+        stopBtn.style.display = 'none';
+        retakeBtn.style.display = 'inline-block';
+        
+        // Stop camera stream
+        stopCamera();
+      }, 'image/jpeg', 0.95);
+    } catch (error) {
+      console.error('Error capturing image:', error);
+      alert('Failed to capture image. Please try again.');
+    }
   }
 
   // Retake photo
   function retakePhoto() {
     capturedImageBlob = null;
-    document.getElementById('inputfile').value = '';
+    const inputfile = document.getElementById('inputfile');
+    inputfile.value = '';
+    
+    // Clear the files property
+    try {
+      const dataTransfer = new DataTransfer();
+      inputfile.files = dataTransfer.files;
+    } catch (e) {
+      // Fallback - create empty FileList-like object
+      const emptyFileList = {
+        length: 0,
+        item: function(index) { return null; },
+        [Symbol.iterator]: function* () {}
+      };
+      Object.setPrototypeOf(emptyFileList, FileList.prototype);
+      Object.defineProperty(inputfile, 'files', {
+        value: emptyFileList,
+        writable: false,
+        configurable: true
+      });
+    }
+    
     hidePreview();
     startCamera();
   }
@@ -379,12 +537,62 @@
       return false;
     }
     
-    return true;
+    // Ensure the file is properly set
+    if (hasFile && inputfile.files[0]) {
+      // File is ready, allow form submission
+      return true;
+    }
+    
+    event.preventDefault();
+    alert('Please select or capture an image before submitting.');
+    return false;
   }
+
+  // Check camera permissions on page load
+  async function checkCameraPermissions() {
+    try {
+      if (navigator.permissions && navigator.permissions.query) {
+        const permissionStatus = await navigator.permissions.query({ name: 'camera' });
+        console.log('Camera permission status:', permissionStatus.state);
+        
+        permissionStatus.onchange = function() {
+          console.log('Camera permission changed to:', this.state);
+        };
+      }
+    } catch (e) {
+      console.log('Permission query not supported:', e);
+    }
+  }
+  
+  // Check permissions when page loads
+  window.addEventListener('DOMContentLoaded', function() {
+    checkCameraPermissions();
+  });
 
   // Clean up camera stream when page unloads
   window.addEventListener('beforeunload', function() {
     stopCamera();
+  });
+  
+  // Also check if we can enumerate devices (helps diagnose issues)
+  async function checkCameraDevices() {
+    try {
+      if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
+        const devices = await navigator.mediaDevices.enumerateDevices();
+        const videoDevices = devices.filter(device => device.kind === 'videoinput');
+        console.log('Available video devices:', videoDevices.length);
+        if (videoDevices.length === 0) {
+          console.warn('No video input devices found');
+        }
+      }
+    } catch (e) {
+      console.log('Device enumeration not supported:', e);
+    }
+  }
+  
+  // Check devices when camera mode is activated
+  document.getElementById('cameraModeBtn')?.addEventListener('click', function() {
+    setTimeout(checkCameraDevices, 100);
   });
 </script>
 

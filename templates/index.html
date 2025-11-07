@@ -9,18 +9,18 @@
     <div class="container">
       <div class="hero-text">
         <h1 class="hero-title">
-          <span class="title-line">Smart Agriculture</span>
-          <span class="title-line">for Modern Farmers</span>
+          <span class="title-line">{{ translate('smart_agriculture') }}</span>
+          <span class="title-line">{{ translate('for_modern_farmers') }}</span>
         </h1>
-        <p class="hero-subtitle">Harness the power of AI to optimize your crops, detect diseases early, and maximize your yield with data-driven insights.</p>
+        <p class="hero-subtitle">{{ translate('harness_ai_power') }}</p>
         <div class="hero-buttons">
           <a href="{{ url_for('crop_recommend') }}" class="btn-hero btn-primary-hero">
             <i class="fas fa-seedling"></i>
-            Get Started
+            {{ translate('get_started') }}
           </a>
           <a href="#services" class="btn-hero btn-secondary-hero">
             <i class="fas fa-info-circle"></i>
-            Learn More
+            {{ translate('learn_more') }}
           </a>
         </div>
       </div>
@@ -37,9 +37,9 @@
 <section class="features-section" id="services">
   <div class="container">
     <div class="section-header">
-      <span class="section-badge">Our Services</span>
-      <h2 class="section-title">Everything You Need for Smart Farming</h2>
-      <p class="section-description">Comprehensive AI-powered tools to help you make informed decisions and grow better crops.</p>
+      <span class="section-badge">{{ translate('our_services') }}</span>
+      <h2 class="section-title">{{ translate('everything_for_smart_farming') }}</h2>
+      <p class="section-description">{{ translate('comprehensive_ai_tools') }}</p>
     </div>
     <div class="features-grid">
       <!-- Feature Card 1: Crop Recommendation -->
@@ -47,10 +47,10 @@
         <div class="feature-icon">
           <i class="fas fa-seedling"></i>
         </div>
-        <h3 class="feature-title">Crop Recommendation</h3>
-        <p class="feature-description">Get personalized crop recommendations based on your soil type, weather conditions, and location for optimal yield.</p>
+        <h3 class="feature-title">{{ translate('crop_recommendation') }}</h3>
+        <p class="feature-description">{{ translate('crop_recommendation_desc') }}</p>
         <a href="{{ url_for('crop_recommend') }}" class="feature-link">
-          Try Now <i class="fas fa-arrow-right"></i>
+          {{ translate('try_now') }} <i class="fas fa-arrow-right"></i>
         </a>
       </article>
 
@@ -59,10 +59,10 @@
         <div class="feature-icon">
           <i class="fas fa-microscope"></i>
         </div>
-        <h3 class="feature-title">Disease Detection</h3>
-        <p class="feature-description">Upload a photo of your plant leaves and instantly identify diseases with our advanced AI-powered detection system.</p>
+        <h3 class="feature-title">{{ translate('disease_detection') }}</h3>
+        <p class="feature-description">{{ translate('disease_detection_desc') }}</p>
         <a href="{{ url_for('disease_prediction') }}" class="feature-link">
-          Detect Now <i class="fas fa-arrow-right"></i>
+          {{ translate('detect_now') }} <i class="fas fa-arrow-right"></i>
         </a>
       </article>
 
@@ -71,10 +71,10 @@
         <div class="feature-icon">
           <i class="fas fa-flask"></i>
         </div>
-        <h3 class="feature-title">Fertilizer Guide</h3>
-        <p class="feature-description">Receive expert fertilizer recommendations tailored to your crop's specific nutrient needs and soil conditions.</p>
+        <h3 class="feature-title">{{ translate('fertilizer_guide') }}</h3>
+        <p class="feature-description">{{ translate('fertilizer_guide_desc') }}</p>
         <a href="{{ url_for('fertilizer_recommendation') }}" class="feature-link">
-          Get Guide <i class="fas fa-arrow-right"></i>
+          {{ translate('get_guide') }} <i class="fas fa-arrow-right"></i>
         </a>
       </article>
 
@@ -83,10 +83,10 @@
         <div class="feature-icon">
           <i class="fas fa-mountain"></i>
         </div>
-        <h3 class="feature-title">Soil Analysis</h3>
-        <p class="feature-description">Analyze your soil type from images and get recommendations for the best crops suited for your land.</p>
+        <h3 class="feature-title">{{ translate('soil_analysis') }}</h3>
+        <p class="feature-description">{{ translate('soil_analysis_desc') }}</p>
         <a href="{{ url_for('crop_recommend') }}" class="feature-link">
-          Analyze Now <i class="fas fa-arrow-right"></i>
+          {{ translate('analyze_now') }} <i class="fas fa-arrow-right"></i>
         </a>
       </article>
     </div>
@@ -103,21 +103,21 @@
         </div>
       </div>
       <div class="about-text">
-        <span class="section-badge">About Us</span>
-        <h2 class="section-title">Empowering Farmers with Technology</h2>
-        <p class="about-description">At AgriTech, we believe in combining traditional farming wisdom with cutting-edge technology. Our mission is to help farmers make data-driven decisions that lead to better yields, reduced costs, and sustainable agricultural practices.</p>
+        <span class="section-badge">{{ translate('about_us') }}</span>
+        <h2 class="section-title">{{ translate('empowering_farmers') }}</h2>
+        <p class="about-description">{{ translate('about_description') }}</p>
         <div class="about-stats">
           <div class="stat-item">
             <div class="stat-number">10K+</div>
-            <div class="stat-label">Active Farmers</div>
+            <div class="stat-label">{{ translate('active_farmers') }}</div>
           </div>
           <div class="stat-item">
             <div class="stat-number">95%</div>
-            <div class="stat-label">Accuracy Rate</div>
+            <div class="stat-label">{{ translate('accuracy_rate') }}</div>
           </div>
           <div class="stat-item">
             <div class="stat-number">50+</div>
-            <div class="stat-label">Crop Types</div>
+            <div class="stat-label">{{ translate('crop_types') }}</div>
           </div>
         </div>
       </div>
@@ -129,9 +129,9 @@
 <section class="how-it-works-section">
   <div class="container">
     <div class="section-header">
-      <span class="section-badge">Simple Process</span>
-      <h2 class="section-title">How It Works</h2>
-      <p class="section-description">Get started in three simple steps</p>
+      <span class="section-badge">{{ translate('simple_process') }}</span>
+      <h2 class="section-title">{{ translate('how_it_works_title') }}</h2>
+      <p class="section-description">{{ translate('get_started_steps') }}</p>
     </div>
     <div class="steps-container">
       <div class="step-item">
@@ -139,8 +139,8 @@
         <div class="step-icon">
           <i class="fas fa-upload"></i>
         </div>
-        <h3 class="step-title">Upload Data</h3>
-        <p class="step-description">Upload images of your crops, soil, or enter your field parameters</p>
+        <h3 class="step-title">{{ translate('upload_data') }}</h3>
+        <p class="step-description">{{ translate('upload_data_desc') }}</p>
       </div>
       <div class="step-connector"></div>
       <div class="step-item">
@@ -148,8 +148,8 @@
         <div class="step-icon">
           <i class="fas fa-brain"></i>
         </div>
-        <h3 class="step-title">AI Analysis</h3>
-        <p class="step-description">Our advanced AI algorithms analyze your data in seconds</p>
+        <h3 class="step-title">{{ translate('ai_analysis') }}</h3>
+        <p class="step-description">{{ translate('ai_analysis_desc') }}</p>
       </div>
       <div class="step-connector"></div>
       <div class="step-item">
@@ -157,8 +157,8 @@
         <div class="step-icon">
           <i class="fas fa-chart-line"></i>
         </div>
-        <h3 class="step-title">Get Results</h3>
-        <p class="step-description">Receive detailed insights and actionable recommendations</p>
+        <h3 class="step-title">{{ translate('get_results') }}</h3>
+        <p class="step-description">{{ translate('get_results_desc') }}</p>
       </div>
     </div>
   </div>
@@ -168,16 +168,16 @@
 <section class="cta-section">
   <div class="container">
     <div class="cta-content">
-      <h2 class="cta-title">Ready to Transform Your Farming?</h2>
-      <p class="cta-description">Join thousands of farmers who are already using AgriTech to improve their yields and reduce costs.</p>
+      <h2 class="cta-title">{{ translate('ready_to_transform') }}</h2>
+      <p class="cta-description">{{ translate('join_thousands') }}</p>
       <div class="cta-buttons">
         <a href="{{ url_for('register') }}" class="btn-cta btn-cta-primary">
           <i class="fas fa-user-plus"></i>
-          Sign Up Free
+          {{ translate('sign_up_free') }}
         </a>
         <a href="{{ url_for('login') }}" class="btn-cta btn-cta-secondary">
           <i class="fas fa-sign-in-alt"></i>
-          Login
+          {{ translate('login') }}
         </a>
       </div>
     </div>

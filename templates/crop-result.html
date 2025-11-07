@@ -8,8 +8,8 @@
       <div class="result-icon success">
         <i class="fas fa-check-circle"></i>
       </div>
-      <h1 class="result-title">Prediction Complete</h1>
-      <p class="result-subtitle">Analysis results for your uploaded image</p>
+      <h1 class="result-title">{{ translate('prediction_complete') }}</h1>
+      <p class="result-subtitle">{{ translate('analysis_results') }}</p>
     </div>
   </div>
 </section>
@@ -21,8 +21,8 @@
       <!-- Image Section -->
       <div class="result-image-section">
         <div class="image-label">
-          <i class="fas fa-image"></i>
-          Uploaded Image
+            <i class="fas fa-image"></i>
+            {{ translate('upload_image') }}
         </div>
         <div class="result-image-wrapper">
           <img src="data:image/png;base64,{{ image_base64 }}" alt="Uploaded Image" class="result-image" />
@@ -34,27 +34,85 @@
         <div class="prediction-header">
           <h2 class="prediction-title">
             <i class="fas fa-seedling"></i>
-            Prediction Result
+            {% if soil_type %}
+            {{ translate('soil_analysis') }}
+            {% else %}
+            {{ translate('prediction_complete') }}
+            {% endif %}
           </h2>
         </div>
         
         <div class="prediction-result">
-          <div class="prediction-label">Predicted Disease:</div>
+          {% if no_soil %}
+          <!-- No Soil Detected -->
+          <div style="text-align: center; padding: 2rem;">
+            <div style="font-size: 3rem; color: #dc3545; margin-bottom: 1rem;">
+              <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h2 style="color: #dc3545; margin-bottom: 1rem;">{{ translate('no_soil_detected') }}</h2>
+            <p style="color: #666; font-size: 1.1rem;">{{ description }}</p>
+          </div>
+          {% elif soil_type %}
+          <!-- Soil Analysis Results -->
+          <div style="margin-bottom: 1.5rem;">
+            <div class="prediction-label">{{ translate('soil_type') }}:</div>
+            <div class="disease-name" style="font-size: 1.5rem; color: #6b8e23;">{{ soil_type }}</div>
+          </div>
+          
+          {% if description %}
+          <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
+            <strong>{{ translate('description') }}:</strong>
+            <p style="margin: 0.5rem 0 0 0; color: #555;">{{ description }}</p>
+          </div>
+          {% endif %}
+          
+          {% if recommended_crops %}
+          <div style="margin-bottom: 1.5rem;">
+            <h3 style="color: #6b8e23; margin-bottom: 0.5rem;">
+              <i class="fas fa-seedling"></i> {{ translate('recommended_crops') }}:
+            </h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+              {% for crop in recommended_crops %}
+              <span style="background: #e8f5e9; color: #2d5016; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem;">
+                {{ crop }}
+              </span>
+              {% endfor %}
+            </div>
+          </div>
+          {% endif %}
+          
+          {% if crop_recommendations %}
+          <div style="background: #fff3cd; padding: 1rem; border-radius: 8px; border-left: 4px solid #ffc107;">
+            <strong style="color: #856404;">{{ translate('crop_recommendations') }}:</strong>
+            <p style="margin: 0.5rem 0 0 0; color: #856404;">{{ crop_recommendations }}</p>
+          </div>
+          {% endif %}
+          
+          <div class="prediction-score" style="margin-top: 1.5rem;">
+            <div class="score-label">{{ translate('confidence_score') }}:</div>
+            <div class="score-value">{{ (prediction.score * 100) | round(2) }}%</div>
+          </div>
+          {% else %}
+          <!-- Default Prediction Display -->
+          <div class="prediction-label">{{ translate('predicted_disease') }}:</div>
           <div class="disease-name">{{ prediction.label }}</div>
           
           <div class="prediction-score">
-            <div class="score-label">Confidence Score:</div>
+            <div class="score-label">{{ translate('confidence_score') }}:</div>
             <div class="score-value">{{ (prediction.score * 100) | round(2) }}%</div>
           </div>
+          {% endif %}
         </div>
 
         <!-- Confidence Bar -->
+        {% if prediction.score %}
         <div class="confidence-bar-wrapper">
-          <div class="confidence-bar-label">Prediction Accuracy</div>
+          <div class="confidence-bar-label">{{ translate('prediction_accuracy') }}</div>
           <div class="confidence-bar">
             <div class="confidence-fill" style="width: {{ (prediction.score * 100) | round(2) }}%"></div>
           </div>
         </div>
+        {% endif %}
       </div>
     </div>
 
@@ -62,11 +120,11 @@
     <div class="result-actions">
       <a href="{{ url_for('home') }}" class="btn-action btn-action-primary">
         <i class="fas fa-home"></i>
-        Back to Home
+        {{ translate('back_to_home') }}
       </a>
       <a href="{{ url_for('crop_recommend') }}" class="btn-action btn-action-secondary">
         <i class="fas fa-redo"></i>
-        Try Another Image
+        {{ translate('try_another') }}
       </a>
     </div>
   </div>

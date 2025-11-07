@@ -7,10 +7,10 @@
     <div class="page-header-content">
       <span class="page-badge">
         <i class="fas fa-seedling"></i>
-        Crop Recommendation
+        {{ translate('crop_recommendation') }}
       </span>
-      <h1 class="page-title">Find the Perfect Crop for Your Soil</h1>
-      <p class="page-description">Upload a soil image or enter your field parameters to get AI-powered crop recommendations tailored to your land.</p>
+      <h1 class="page-title">{{ translate('find_perfect_crop') }}</h1>
+      <p class="page-description">{{ translate('upload_soil_description') }}</p>
     </div>
   </div>
 </section>
@@ -24,30 +24,81 @@
           <div class="upload-icon">
             <i class="fas fa-cloud-upload-alt"></i>
           </div>
-          <h2 class="upload-title">Upload Soil Image</h2>
-          <p class="upload-subtitle">Get instant crop recommendations based on your soil type</p>
+          <h2 class="upload-title">{{ translate('upload_soil_image') }}</h2>
+          <p class="upload-subtitle">{{ translate('get_instant_recommendations') }}</p>
         </div>
         
         <form method="POST" action="{{ url_for('soil_prediction') }}" enctype="multipart/form-data" class="upload-form">
           <div class="form-group-modern">
             <label for="soil_image" class="form-label-modern">
               <i class="fas fa-image"></i>
-              Select Soil Image
+              {{ translate('select_soil_image') }}
             </label>
-            <div class="file-input-wrapper">
-              <input type="file" class="file-input-modern" id="soil_image" name="soil_image" accept="image/*" required />
+            
+            <!-- Mode Toggle -->
+            <div class="input-mode-toggle" style="display: flex; gap: 10px; margin-bottom: 15px;">
+              <button type="button" class="mode-btn active" id="uploadModeBtn" onclick="switchMode('upload')" style="flex: 1; padding: 10px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                <i class="fas fa-upload"></i>
+                {{ translate('upload_file') }}
+              </button>
+              <button type="button" class="mode-btn" id="cameraModeBtn" onclick="switchMode('camera')" style="flex: 1; padding: 10px; background: #6c757d; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                <i class="fas fa-camera"></i>
+                {{ translate('use_camera') }}
+              </button>
+            </div>
+            
+            <!-- File Upload Mode -->
+            <div class="file-input-wrapper" id="uploadMode">
+              <input type="file" class="file-input-modern" id="soil_image" name="soil_image" accept="image/*" onchange="preview_image(event)" />
               <label for="soil_image" class="file-label-modern">
                 <i class="fas fa-folder-open"></i>
-                <span class="file-text">Choose Image File</span>
+                <span class="file-text">{{ translate('choose_image_file') }}</span>
                 <span class="file-hint">PNG, JPG, JPEG up to 10MB</span>
               </label>
             </div>
+            
+            <!-- Camera Mode -->
+            <div class="camera-wrapper" id="cameraMode" style="display: none;">
+              <div class="camera-container">
+                <div id="cameraInstructions" style="padding: 15px; background: #e7f3ff; border-left: 4px solid #007bff; border-radius: 5px; margin-bottom: 15px; color: #004085;">
+                  <strong><i class="fas fa-info-circle"></i> Camera Instructions:</strong>
+                  <ul style="margin: 8px 0 0 20px; font-size: 0.9em;">
+                    <li>Click "Start Camera" below</li>
+                    <li>Allow camera access when your browser asks for permission</li>
+                    <li>Position your soil sample in the camera view</li>
+                    <li>Click "Capture Photo" to take the picture</li>
+                  </ul>
+                </div>
+                <video id="video" autoplay playsinline style="width: 100%; max-width: 500px; border-radius: 8px; display: none; background: #000;"></video>
+                <canvas id="canvas" style="display: none;"></canvas>
+                <div class="camera-controls" style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 15px;">
+                  <button type="button" class="btn-camera-start" id="startCameraBtn" onclick="startCamera()" style="padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 1em;">
+                    <i class="fas fa-video"></i>
+                    {{ translate('start_camera') }}
+                  </button>
+                  <button type="button" class="btn-camera-capture" id="captureBtn" onclick="captureImage()" style="display: none; padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    <i class="fas fa-camera"></i>
+                    {{ translate('capture_photo') }}
+                  </button>
+                  <button type="button" class="btn-camera-stop" id="stopCameraBtn" onclick="stopCamera()" style="display: none; padding: 10px 20px; background: #dc3545; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    <i class="fas fa-stop"></i>
+                    {{ translate('stop_camera') }}
+                  </button>
+                  <button type="button" class="btn-camera-retake" id="retakeBtn" onclick="retakePhoto()" style="display: none; padding: 10px 20px; background: #ffc107; color: #000; border: none; border-radius: 5px; cursor: pointer;">
+                    <i class="fas fa-redo"></i>
+                    {{ translate('retake') }}
+                  </button>
+                </div>
+                <div id="cameraError" class="error-message-modern" style="display: none; margin-top: 15px; padding: 10px; background: #f8d7da; color: #721c24; border-radius: 5px;"></div>
+              </div>
+            </div>
+            
             <div class="file-preview" id="filePreview"></div>
           </div>
           
           <button type="submit" class="btn-submit-modern">
             <i class="fas fa-search"></i>
-            <span>Analyze Soil & Get Recommendations</span>
+            <span>{{ translate('analyze_soil_get_recommendations') }}</span>
             <i class="fas fa-arrow-right"></i>
           </button>
         </form>
@@ -57,33 +108,33 @@
       <div class="info-card">
         <h3 class="info-title">
           <i class="fas fa-lightbulb"></i>
-          How It Works
+          {{ translate('how_it_works') }}
         </h3>
         <ul class="info-list">
           <li class="info-item">
             <i class="fas fa-check-circle"></i>
-            <span>Upload a clear image of your soil</span>
+            <span>{{ translate('upload_clear_soil_image') }}</span>
           </li>
           <li class="info-item">
             <i class="fas fa-check-circle"></i>
-            <span>Our AI analyzes the soil type and composition</span>
+            <span>{{ translate('ai_analyzes_soil') }}</span>
           </li>
           <li class="info-item">
             <i class="fas fa-check-circle"></i>
-            <span>Get personalized crop recommendations</span>
+            <span>{{ translate('get_personalized_crops') }}</span>
           </li>
           <li class="info-item">
             <i class="fas fa-check-circle"></i>
-            <span>View detailed information about each crop</span>
+            <span>{{ translate('view_detailed_info') }}</span>
           </li>
         </ul>
         
         <div class="info-tips">
           <h4 class="tips-title">
             <i class="fas fa-star"></i>
-            Tips for Best Results
+            {{ translate('tips_for_best_results') }}
           </h4>
-          <p class="tips-text">Use good lighting, ensure the image is clear and focused, and include a representative sample of your soil.</p>
+          <p class="tips-text">{{ translate('tips_soil_image') }}</p>
         </div>
       </div>
     </div>
@@ -96,31 +147,348 @@
     <div class="features-preview-grid">
       <div class="preview-item">
         <i class="fas fa-mountain"></i>
-        <h3>Soil Type Detection</h3>
-        <p>Automatically identify alluvial, black, clay, and red soil types</p>
+        <h3>{{ translate('soil_type_detection') }}</h3>
+        <p>{{ translate('identify_soil_types') }}</p>
       </div>
       <div class="preview-item">
         <i class="fas fa-seedling"></i>
-        <h3>Crop Matching</h3>
-        <p>Get crops perfectly suited for your soil composition</p>
+        <h3>{{ translate('crop_matching') }}</h3>
+        <p>{{ translate('crops_for_soil') }}</p>
       </div>
       <div class="preview-item">
         <i class="fas fa-chart-line"></i>
-        <h3>Yield Optimization</h3>
-        <p>Maximize your harvest with data-driven recommendations</p>
+        <h3>{{ translate('yield_optimization') }}</h3>
+        <p>{{ translate('maximize_harvest') }}</p>
       </div>
     </div>
   </div>
 </section>
 
 <script>
-  // File input preview
-  document.getElementById('soil_image').addEventListener('change', function(e) {
-    const file = e.target.files[0];
-    const preview = document.getElementById('filePreview');
+  let stream = null;
+  let currentMode = 'upload';
+  let capturedImageBlob = null;
+
+  // Mode switching
+  function switchMode(mode) {
+    currentMode = mode;
+    const uploadMode = document.getElementById('uploadMode');
+    const cameraMode = document.getElementById('cameraMode');
+    const uploadBtn = document.getElementById('uploadModeBtn');
+    const cameraBtn = document.getElementById('cameraModeBtn');
+    const soilImage = document.getElementById('soil_image');
     
-    if (file) {
+    if (mode === 'upload') {
+      uploadMode.style.display = 'block';
+      cameraMode.style.display = 'none';
+      uploadBtn.classList.add('active');
+      uploadBtn.style.background = '#28a745';
+      cameraBtn.classList.remove('active');
+      cameraBtn.style.background = '#6c757d';
+      soilImage.required = true;
+      stopCamera(); // Stop camera if running
+    } else {
+      uploadMode.style.display = 'none';
+      cameraMode.style.display = 'block';
+      uploadBtn.classList.remove('active');
+      uploadBtn.style.background = '#6c757d';
+      cameraBtn.classList.add('active');
+      cameraBtn.style.background = '#28a745';
+      soilImage.required = false;
+      soilImage.value = ''; // Clear file input
+      hidePreview();
+    }
+  }
+
+  // Start camera
+  async function startCamera() {
+    const video = document.getElementById('video');
+    const startBtn = document.getElementById('startCameraBtn');
+    const captureBtn = document.getElementById('captureBtn');
+    const stopBtn = document.getElementById('stopCameraBtn');
+    const retakeBtn = document.getElementById('retakeBtn');
+    const errorDiv = document.getElementById('cameraError');
+    const previewWrapper = document.getElementById('filePreview');
+    
+    // Save original button text for restoration
+    const startBtnText = startBtn.innerHTML;
+    
+    // Hide preview and reset state
+    previewWrapper.innerHTML = '';
+    errorDiv.style.display = 'none';
+    retakeBtn.style.display = 'none';
+    
+    // Stop any existing stream first
+    if (stream) {
+      stream.getTracks().forEach(track => track.stop());
+      stream = null;
+    }
+    
+    // Check if we're on HTTPS or localhost
+    const isLocalhost = location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.hostname === '0.0.0.0';
+    const isSecure = location.protocol === 'https:' || window.isSecureContext;
+    
+    if (!isSecure && !isLocalhost) {
+      errorDiv.innerHTML = '<i class="fas fa-exclamation-triangle"></i> <span><strong>Camera access requires HTTPS or localhost.</strong><br><small>Please access the site via http://localhost:5000 or use HTTPS.</small></span>';
+      errorDiv.style.display = 'block';
+      return;
+    }
+    
+    try {
+      // Check if getUserMedia is supported
+      if (!navigator.mediaDevices) {
+        navigator.mediaDevices = {};
+        navigator.mediaDevices.getUserMedia = navigator.mediaDevices.getUserMedia ||
+          navigator.webkitGetUserMedia ||
+          navigator.mozGetUserMedia ||
+          navigator.msGetUserMedia;
+      }
+      
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        throw new Error('getUserMedia is not supported in this browser. Please use a modern browser like Chrome, Firefox, Edge, or Safari.');
+      }
+      
+      // Show loading state
+      startBtn.disabled = true;
+      startBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Starting...';
+      
+      // Try multiple constraint combinations
+      const constraintAttempts = [
+        { video: { facingMode: { ideal: 'environment' }, width: { ideal: 1280, min: 640 }, height: { ideal: 720, min: 480 } } },
+        { video: { width: { ideal: 1280, min: 640 }, height: { ideal: 720, min: 480 } } },
+        { video: true },
+        { video: { facingMode: 'user' } }
+      ];
+      
+      let lastError = null;
+      
+      for (let i = 0; i < constraintAttempts.length; i++) {
+        try {
+          console.log(`Trying camera constraints attempt ${i + 1}...`);
+          stream = await navigator.mediaDevices.getUserMedia(constraintAttempts[i]);
+          
+          // Success! Set up video
+          video.srcObject = stream;
+          video.style.display = 'block';
+          
+          // Hide instructions when camera starts
+          const instructions = document.getElementById('cameraInstructions');
+          if (instructions) instructions.style.display = 'none';
+          
+          // Update button visibility
+          startBtn.disabled = false;
+          startBtn.style.display = 'none';
+          startBtn.innerHTML = startBtnText;
+          captureBtn.style.display = 'inline-block';
+          stopBtn.style.display = 'inline-block';
+          
+          // Wait for video to be ready and play
+          video.onloadedmetadata = () => {
+            video.play().catch(err => {
+              console.error('Error playing video:', err);
+            });
+          };
+          
+          video.onerror = (e) => {
+            console.error('Video error:', e);
+            errorDiv.innerHTML = '<i class="fas fa-exclamation-triangle"></i> <span>Error displaying camera feed. Please try again.</span>';
+            errorDiv.style.display = 'block';
+          };
+          
+          return; // Success
+          
+        } catch (attemptError) {
+          console.log(`Attempt ${i + 1} failed:`, attemptError);
+          lastError = attemptError;
+        }
+      }
+      
+      throw lastError || new Error('All camera access attempts failed');
+      
+    } catch (error) {
+      console.error('Error accessing camera:', error);
+      
+      // Reset UI
+      startBtn.disabled = false;
+      startBtn.style.display = 'inline-block';
+      startBtn.innerHTML = startBtnText;
+      captureBtn.style.display = 'none';
+      stopBtn.style.display = 'none';
+      video.style.display = 'none';
+      
+      // Show appropriate error message
+      let errorMessage = '';
+      let helpText = '';
+      
+      if (error.name === 'NotAllowedError' || error.name === 'PermissionDeniedError') {
+        errorMessage = 'Camera permission denied.';
+        helpText = 'Please click the camera icon in your browser\'s address bar and allow camera access, then try again.';
+      } else if (error.name === 'NotFoundError' || error.name === 'DevicesNotFoundError') {
+        errorMessage = 'No camera found.';
+        helpText = 'Please connect a camera device or use file upload instead.';
+      } else if (error.name === 'NotReadableError' || error.name === 'TrackStartError') {
+        errorMessage = 'Camera is already in use.';
+        helpText = 'Another application is using your camera. Please close other apps and try again.';
+      } else if (error.name === 'OverconstrainedError' || error.name === 'ConstraintNotSatisfiedError') {
+        errorMessage = 'Camera does not support the required settings.';
+        helpText = 'Your camera may not support the requested resolution. Please try using file upload instead.';
+      } else if (error.message && error.message.includes('not supported')) {
+        errorMessage = 'Camera access not supported.';
+        helpText = 'Please use a modern browser like Chrome, Firefox, Edge, or Safari.';
+      } else {
+        errorMessage = 'Unable to access camera.';
+        helpText = 'Please check your browser permissions or try uploading a file instead.';
+      }
+      
+      errorDiv.innerHTML = '<i class="fas fa-exclamation-triangle"></i> <strong>' + errorMessage + '</strong><br><small>' + helpText + '</small>';
+      errorDiv.style.display = 'block';
+    }
+  }
+
+  // Stop camera
+  function stopCamera() {
+    if (stream) {
+      stream.getTracks().forEach(track => track.stop());
+      stream = null;
+    }
+    
+    const video = document.getElementById('video');
+    const startBtn = document.getElementById('startCameraBtn');
+    const captureBtn = document.getElementById('captureBtn');
+    const stopBtn = document.getElementById('stopCameraBtn');
+    const retakeBtn = document.getElementById('retakeBtn');
+    const instructions = document.getElementById('cameraInstructions');
+    
+    video.srcObject = null;
+    video.style.display = 'none';
+    startBtn.style.display = 'inline-block';
+    captureBtn.style.display = 'none';
+    stopBtn.style.display = 'none';
+    retakeBtn.style.display = 'none';
+    
+    if (instructions) instructions.style.display = 'block';
+  }
+
+  // Capture image from camera
+  function captureImage() {
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const captureBtn = document.getElementById('captureBtn');
+    const stopBtn = document.getElementById('stopCameraBtn');
+    const retakeBtn = document.getElementById('retakeBtn');
+    const soilImage = document.getElementById('soil_image');
+    
+    if (!video || !video.videoWidth || !video.videoHeight) {
+      alert('Camera is not ready. Please wait for the camera to start.');
+      return;
+    }
+    
+    try {
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      
+      canvas.toBlob(function(blob) {
+        if (!blob) {
+          alert('Failed to capture image. Please try again.');
+          return;
+        }
+        
+        capturedImageBlob = blob;
+        
+        const file = new File([blob], 'captured-soil-image.jpg', { 
+          type: 'image/jpeg',
+          lastModified: Date.now()
+        });
+        
+        try {
+          const dataTransfer = new DataTransfer();
+          dataTransfer.items.add(file);
+          soilImage.files = dataTransfer.files;
+        } catch (e) {
+          const fileList = {
+            0: file,
+            length: 1,
+            item: function(index) { return index === 0 ? file : null; },
+            [Symbol.iterator]: function* () { yield file; }
+          };
+          Object.setPrototypeOf(fileList, FileList.prototype);
+          Object.defineProperty(soilImage, 'files', {
+            value: fileList,
+            writable: false,
+            configurable: true
+          });
+        }
+        
+        const changeEvent = new Event('change', { bubbles: true });
+        soilImage.dispatchEvent(changeEvent);
+        
+        // Show preview
+        const preview = document.getElementById('filePreview');
+        preview.innerHTML = `
+          <div class="preview-image-wrapper">
+            <img src="${canvas.toDataURL('image/jpeg')}" alt="Preview" class="preview-image" />
+            <div class="preview-info">
+              <span class="preview-name">captured-soil-image.jpg</span>
+              <span class="preview-size">${(blob.size / 1024 / 1024).toFixed(2)} MB</span>
+            </div>
+          </div>
+        `;
+        
+        captureBtn.style.display = 'none';
+        stopBtn.style.display = 'none';
+        retakeBtn.style.display = 'inline-block';
+        
+        stopCamera();
+      }, 'image/jpeg', 0.95);
+    } catch (error) {
+      console.error('Error capturing image:', error);
+      alert('Failed to capture image. Please try again.');
+    }
+  }
+
+  // Retake photo
+  function retakePhoto() {
+    capturedImageBlob = null;
+    const soilImage = document.getElementById('soil_image');
+    soilImage.value = '';
+    
+    try {
+      const dataTransfer = new DataTransfer();
+      soilImage.files = dataTransfer.files;
+    } catch (e) {
+      const emptyFileList = {
+        length: 0,
+        item: function(index) { return null; },
+        [Symbol.iterator]: function* () {}
+      };
+      Object.setPrototypeOf(emptyFileList, FileList.prototype);
+      Object.defineProperty(soilImage, 'files', {
+        value: emptyFileList,
+        writable: false,
+        configurable: true
+      });
+    }
+    
+    hidePreview();
+    startCamera();
+  }
+
+  // Hide preview
+  function hidePreview() {
+    const preview = document.getElementById('filePreview');
+    preview.innerHTML = '';
+  }
+
+  // Preview uploaded image
+  function preview_image(event) {
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+      const preview = document.getElementById('filePreview');
       const reader = new FileReader();
+      
       reader.onload = function(e) {
         preview.innerHTML = `
           <div class="preview-image-wrapper">
@@ -134,8 +502,27 @@
       };
       reader.readAsDataURL(file);
     } else {
-      preview.innerHTML = '';
+      hidePreview();
     }
+  }
+
+  // Form validation
+  document.querySelector('form').addEventListener('submit', function(e) {
+    const soilImage = document.getElementById('soil_image');
+    const hasFile = soilImage.files && soilImage.files.length > 0;
+    
+    if (!hasFile) {
+      e.preventDefault();
+      alert('Please upload an image file or capture a photo using the camera.');
+      return false;
+    }
+    
+    return true;
+  });
+
+  // Clean up camera stream when page unloads
+  window.addEventListener('beforeunload', function() {
+    stopCamera();
   });
 </script>
 
