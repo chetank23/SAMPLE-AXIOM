@@ -25,14 +25,14 @@
             <i class="fas fa-seedling"></i>
           </div>
           <h2 class="upload-title">Enter Crop & Soil Information</h2>
-          <p class="upload-subtitle">Provide your crop name and current nutrient levels for personalized recommendations</p>
+          <p class="upload-subtitle">Select your crop, soil type, and water availability for personalized fertilizer recommendations</p>
         </div>
         
         <form method="POST" action="{{ url_for('fert_recommend') }}" class="upload-form">
           <div class="form-group-modern">
             <label for="cropname" class="form-label-modern">
               <i class="fas fa-leaf"></i>
-              Crop Name
+              Crop to Grow
             </label>
             <select name="cropname" id="cropname" class="agri-input" required>
               <option value="">Select a crop...</option>
@@ -55,63 +55,48 @@
               <option value="orange">Orange</option>
               <option value="papaya">Papaya</option>
               <option value="coconut">Coconut</option>
+              <option value="wheat">Wheat</option>
+              <option value="cotton">Cotton</option>
+              <option value="sugarcane">Sugarcane</option>
+              <option value="potato">Potato</option>
+              <option value="tomato">Tomato</option>
             </select>
           </div>
           
-          <div class="form-row-modern">
-            <div class="form-group-modern">
-              <label for="nitrogen" class="form-label-modern">
-                <i class="fas fa-atom"></i>
-                Nitrogen (N) Level
-              </label>
-              <input 
-                type="number" 
-                name="nitrogen" 
-                id="nitrogen" 
-                class="agri-input" 
-                placeholder="Enter N value (0-200)"
-                min="0" 
-                max="200" 
-                required
-              />
-              <small class="form-hint">Typical range: 0-200</small>
-            </div>
-            
-            <div class="form-group-modern">
-              <label for="phosphorous" class="form-label-modern">
-                <i class="fas fa-flask"></i>
-                Phosphorus (P) Level
-              </label>
-              <input 
-                type="number" 
-                name="phosphorous" 
-                id="phosphorous" 
-                class="agri-input" 
-                placeholder="Enter P value (0-200)"
-                min="0" 
-                max="200" 
-                required
-              />
-              <small class="form-hint">Typical range: 0-200</small>
-            </div>
-            
-            <div class="form-group-modern">
-              <label for="pottasium" class="form-label-modern">
-                <i class="fas fa-gem"></i>
-                Potassium (K) Level
-              </label>
-              <input 
-                type="number" 
-                name="pottasium" 
-                id="pottasium" 
-                class="agri-input" 
-                placeholder="Enter K value (0-200)"
-                min="0" 
-                max="200" 
-                required
-              />
-              <small class="form-hint">Typical range: 0-200</small>
-            </div>
+          <div class="form-group-modern">
+            <label for="soil_type" class="form-label-modern">
+              <i class="fas fa-mountain"></i>
+              Type of Soil
+            </label>
+            <select name="soil_type" id="soil_type" class="agri-input" required>
+              <option value="">Select soil type...</option>
+              <option value="alluvial">Alluvial Soil</option>
+              <option value="black">Black Soil</option>
+              <option value="red">Red Soil</option>
+              <option value="clay">Clay Soil</option>
+              <option value="sandy">Sandy Soil</option>
+              <option value="loamy">Loamy Soil</option>
+              <option value="silt">Silt Soil</option>
+            </select>
+            <small class="form-hint">Select the type of soil in your field</small>
+          </div>
+          
+          <div class="form-group-modern">
+            <label for="water_availability" class="form-label-modern">
+              <i class="fas fa-tint"></i>
+              Water Availability Percentage
+            </label>
+            <input 
+              type="number" 
+              name="water_availability" 
+              id="water_availability" 
+              class="agri-input" 
+              placeholder="Enter water availability (0-100)"
+              min="0" 
+              max="100" 
+              required
+            />
+            <small class="form-hint">Enter water availability percentage (0-100%)</small>
           </div>
           
           <button type="submit" class="btn-submit-modern btn-agri">
@@ -135,11 +120,15 @@
           </li>
           <li class="info-item">
             <i class="fas fa-check-circle"></i>
-            <span>Enter current Nitrogen (N), Phosphorus (P), and Potassium (K) levels</span>
+            <span>Select the type of soil in your field</span>
           </li>
           <li class="info-item">
             <i class="fas fa-check-circle"></i>
-            <span>Our system compares with optimal nutrient levels for your crop</span>
+            <span>Enter water availability percentage (0-100%)</span>
+          </li>
+          <li class="info-item">
+            <i class="fas fa-check-circle"></i>
+            <span>Our system analyzes soil type and water availability for your crop</span>
           </li>
           <li class="info-item">
             <i class="fas fa-check-circle"></i>
@@ -150,12 +139,12 @@
         <div class="info-tips">
           <h4 class="tips-title">
             <i class="fas fa-star"></i>
-            Understanding NPK
+            Understanding Inputs
           </h4>
           <ul class="tips-list">
-            <li><strong>Nitrogen (N):</strong> Essential for leaf growth and green color</li>
-            <li><strong>Phosphorus (P):</strong> Important for root development and flowering</li>
-            <li><strong>Potassium (K):</strong> Vital for overall plant health and fruit quality</li>
+            <li><strong>Soil Type:</strong> Different soils have different nutrient retention and drainage properties</li>
+            <li><strong>Water Availability:</strong> Affects fertilizer application timing and quantity</li>
+            <li><strong>Crop Selection:</strong> Each crop has specific nutrient and water requirements</li>
           </ul>
         </div>
       </div>

@@ -5,11 +5,19 @@
 <section class="result-header">
   <div class="container">
     <div class="result-header-content">
+      {% if no_flora %}
+      <div class="result-icon" style="color: #ffc107;">
+        <i class="fas fa-exclamation-triangle"></i>
+      </div>
+      <h1 class="result-title">No Flora Detected</h1>
+      <p class="result-subtitle">The uploaded image does not contain any plants or vegetation</p>
+      {% else %}
       <div class="result-icon success">
         <i class="fas fa-check-circle"></i>
       </div>
       <h1 class="result-title">Disease Detection Complete</h1>
       <p class="result-subtitle">Analysis results for your plant image</p>
+      {% endif %}
     </div>
   </div>
 </section>
@@ -35,32 +43,89 @@
         <div class="prediction-section">
           <div class="prediction-header">
             <h2 class="prediction-title">
+              {% if no_flora %}
+              <i class="fas fa-exclamation-triangle"></i>
+              No Flora Detected
+              {% else %}
               <i class="fas fa-microscope"></i>
               Disease Detected
+              {% endif %}
             </h2>
           </div>
           
           <div class="prediction-result">
+            {% if no_flora %}
+            <!-- No Flora Detected Message - Simple Display -->
+            <div class="no-flora-message" style="padding: 30px; text-align: center; background: #fff3cd; border-radius: 8px; border-left: 4px solid #ffc107;">
+              <i class="fas fa-leaf" style="font-size: 48px; color: #856404; margin-bottom: 15px;"></i>
+              <div class="disease-name" style="color: #856404; font-size: 24px; font-weight: bold;">
+                No Flora Detected
+              </div>
+            </div>
+            {% else %}
+            <!-- Normal Analysis Results -->
+            {% if crop_name and disease_name %}
+            <div class="crop-info" style="margin-bottom: 10px;">
+              <span class="info-label">Crop:</span>
+              <span class="info-value">{{ crop_name }}</span>
+            </div>
+            <div class="disease-name">
+              {{ disease_name }}
+            </div>
+            {% else %}
             <div class="disease-name">
               {{ prediction['label'] }}
             </div>
+            {% endif %}
+            
+            <!-- Confidence Level Badge -->
+            {% if confidence_level %}
+            <div class="confidence-badge" style="margin-top: 10px; padding: 8px 15px; background: {% if confidence_level == 'High' %}#28a745{% elif confidence_level == 'Medium' %}#ffc107{% else %}#dc3545{% endif %}; color: white; border-radius: 20px; display: inline-block;">
+              <i class="fas fa-chart-line"></i>
+              <span>Confidence: {{ confidence_level }}</span>
+            </div>
+            {% else %}
             <div class="confidence-badge">
               <i class="fas fa-chart-line"></i>
               <span>Confidence: {{ (prediction['score'] * 100) | round(2) }}%</span>
             </div>
+            {% endif %}
+            
+            <!-- Symptoms Detected -->
+            {% if symptoms_detected and symptoms_detected|length > 0 %}
+            <div class="symptoms-box" style="margin-top: 15px; padding: 15px; background: #fff3cd; border-radius: 8px; border-left: 4px solid #ffc107;">
+              <strong><i class="fas fa-exclamation-triangle"></i> Symptoms Detected:</strong>
+              <ul style="margin: 8px 0 0 20px; color: #856404;">
+                {% for symptom in symptoms_detected %}
+                <li>{{ symptom }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+            {% endif %}
+            
+            {% if description %}
+            <div class="description-box" style="margin-top: 15px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #28a745;">
+              <strong><i class="fas fa-info-circle"></i> Analysis:</strong>
+              <p style="margin: 8px 0 0 0; color: #555;">{{ description }}</p>
+            </div>
+            {% endif %}
+            {% endif %}
           </div>
 
           <!-- Confidence Bar -->
+          {% if not no_flora %}
           <div class="confidence-bar-wrapper">
             <div class="confidence-bar-label">Prediction Accuracy</div>
             <div class="confidence-bar">
               <div class="confidence-fill" style="width: {{ (prediction['score'] * 100) | round(2) }}%"></div>
             </div>
           </div>
+          {% endif %}
         </div>
       </div>
 
       <!-- Fertilizer Recommendation Card -->
+      {% if not no_flora %}
       <div class="recommendation-card">
         <div class="recommendation-header">
           <div class="recommendation-icon">
@@ -70,6 +135,16 @@
         </div>
 
         <div class="recommendation-content">
+          {% if treatment_tip %}
+          <div class="recommendation-item" style="margin-bottom: 1.5rem;">
+            <div class="recommendation-label">
+              <i class="fas fa-lightbulb"></i>
+              Treatment Advice
+            </div>
+            <div class="recommendation-value" style="font-size: 1.05rem; line-height: 1.6;">{{ treatment_tip }}</div>
+          </div>
+          {% endif %}
+          
           <div class="recommendation-item">
             <div class="recommendation-label">
               <i class="fas fa-pills"></i>
@@ -102,6 +177,7 @@
           </div>
         </div>
       </div>
+      {% endif %}
     </div>
 
     <!-- Action Buttons -->
@@ -119,6 +195,7 @@
 </section>
 
 <!-- Additional Info Section -->
+{% if not no_flora %}
 <section class="result-info-section">
   <div class="container">
     <div class="info-cards-grid">
@@ -140,5 +217,6 @@
     </div>
   </div>
 </section>
+{% endif %}
 
 {% endblock %}
