@@ -332,7 +332,6 @@ pure-eval==0.2.2
 pyarrow==17.0.0
 pyasn1==0.5.0
 pyasn1-modules==0.3.0
-PyAudio @ file:///C:/Users/HP/PycharmProjects/JarvisAI/PyAudio-0.2.11-cp311-cp311-win_amd64.whl#sha256=5092b46bff5d6687db817bde4a71ffc50dd316cc2e490ee81908f0c95ef2644f
 PyAutoGUI==0.9.54
 pybotkit==0.1
 pycparser==2.21
